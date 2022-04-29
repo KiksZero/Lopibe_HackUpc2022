@@ -1,11 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>lopibes</groupId>
-  <artifactId>LoPibes</artifactId>
+  <groupId>lopibe</groupId>
+  <artifactId>LoPibe</artifactId>
   <packaging>war</packaging>
   <version>0</version>
-  <name>LoPibes Webapp</name>
+  <name>LoPibe Webapp</name>
   <url>http://maven.apache.org</url>
   <dependencies>
     <dependency>
@@ -46,7 +46,7 @@
        <directory>${basedir}/backend/webapp</directory>
      </resource>
    </resources>
-    <finalName>LoPibes</finalName>
+    <finalName>LoPibe</finalName>
     <sourceDirectory>${basedir}/backend/src</sourceDirectory>   
     <testSourceDirectory>${basedir}/backend/test</testSourceDirectory>
     <outputDirectory>${basedir}/backend/build/classes</outputDirectory>
