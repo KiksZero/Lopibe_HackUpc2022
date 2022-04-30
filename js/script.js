@@ -4,8 +4,7 @@ let NUMBER_OF_GUESSES = 6;
 let guessesRemaining = NUMBER_OF_GUESSES;
 let currentGuess = [];
 let nextLetter = 0;
-let timer = 5;
-let score = 0;
+let timer = 40;
 let puntuacion = 0;
 
 function initBoard() {
@@ -140,7 +139,7 @@ function cambioletra(solucion, oculta) {
 }
 
 initBoard();
-showpuntuacion();
+showPuntuacion();
 var timeInterval = setInterval(function(){
     updateTimer();}, 1000);
 
@@ -162,7 +161,7 @@ function checkGuess () {
         alert("Cagaste");
     } else if (guessString === Phrase) {
         alert("You guessed right! Game over!");
-        saveGame();
+        newPuntuacion();
     } 
 
     currentGuess = [];
@@ -186,13 +185,8 @@ function saveGame(){
     http.setRequestHeader("Access-Control-Allow-Origin","*");
     http.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
     var name = "hola";
-    var score = 10;
     var scoreDate = Date.now();
-    http.send(JSON.stringify({'playerName': name , 'score': score, 'scoreDate': scoreDate}));
-}
-
-function getTimer() {
-    return this.timer;
+    http.send(JSON.stringify({'playerName': name , 'score': puntuacion, 'scoreDate': scoreDate}));
 }
 
 function showPhrase() {
@@ -208,6 +202,7 @@ function updateTimer() {
         clearInterval(timeInterval);
         clearInterval(phraseInterval);
         showPhrase();
+        saveGame();
     }
     else {
         --timer;
@@ -216,19 +211,12 @@ function updateTimer() {
     }
 }
 
-function getpuntuacion() {
-    return puntuacion;
-}
-
-function showpuntuacion() {
+function showPuntuacion() {
     let scoreView = document.getElementById("score");
-    scoreView.textContent = score;
+    scoreView.textContent = puntuacion;
 }
 
-function newpuntuacion() {
-    let actual = getpuntuacion();
-    let time_remaining = getTimer();
-    actual += 10*time_remaining;
-    this.puntuacion = actual;
-    showpuntuacion();
+function newPuntuacion() {
+    puntuacion += 10*timer;
+    showPuntuacion();
 }
