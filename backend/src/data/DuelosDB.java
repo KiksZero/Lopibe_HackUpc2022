@@ -26,7 +26,7 @@ public class DuelosDB implements DueloDataCtrl{
             selectStart = conn.prepareStatement("SELECT starts FROM Duelos WHERE id = ?");
             selectResult1 = conn.prepareStatement("SELECT result1 FROM Duelos WHERE id = ?");
             selectResult2 = conn.prepareStatement("SELECT result2 FROM Duelos WHERE id = ?");
-            insert = conn.prepareStatement("INSERT INTO Duelos (name1) VALUES ('?')", PreparedStatement.RETURN_GENERATED_KEYS);
+            insert = conn.prepareStatement("INSERT INTO Duelos (name1) VALUES (?)", PreparedStatement.RETURN_GENERATED_KEYS);
             updateName2 = conn.prepareStatement("UPDATE Duelos SET name2 = ? WHERE id = ?");
             updateResults1 = conn.prepareStatement("UPDATE Duelos SET result1 = ? WHERE id = ?");
             updateResults2 = conn.prepareStatement("UPDATE Duelos SET result2= ? WHERE id = ?");
@@ -45,11 +45,12 @@ public class DuelosDB implements DueloDataCtrl{
     @Override
     public int insert(String name1) {
         try {
+            System.out.println(name1);
             insert.setString(1, name1);
             insert.executeUpdate();
             ResultSet r = insert.getGeneratedKeys();
             if (r.next()) {
-                return r.getInt("id");
+                return r.getInt(1);
             }
             return -1;
         } catch (SQLException e) {
