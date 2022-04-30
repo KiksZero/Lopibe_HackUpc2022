@@ -115,7 +115,7 @@ function insertLetter (pressedKey) {
 function deleteLetter () {
     if (!phrase[nextLetter - 1].match(/[a-z]/gi)){
         currentGuess.pop();
-        nextLetter += 1;
+        nextLetter -= 1;
     }
     let row = document.getElementsByClassName("letter-row")[1];
     let box = row.children[nextLetter - 1];
