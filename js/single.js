@@ -5,7 +5,7 @@ function getPhrase() {
             putText(this.responseText);
         }
     };
-    http.open('GET', 'http://127.0.0.1:8080/LoPibe/phrase');
+    http.open('GET', 'http://144.24.196.175:8080/LoPibe/phrase');
     http.setRequestHeader("Access-Control-Allow-Origin","*");
     http.send();
 }

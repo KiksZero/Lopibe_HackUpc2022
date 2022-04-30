@@ -13,7 +13,7 @@ function getphrase() {
             phrase = this.responseText;
         }
     };
-    http.open('GET', 'http://127.0.0.1:8080/LoPibe/phrase', false);
+    http.open('GET', 'http://144.24.196.175:8080/LoPibe/phrase', false);
     http.setRequestHeader("Access-Control-Allow-Origin","*");
     http.send();
 }
@@ -195,7 +195,7 @@ function saveGame(){
             alert("funciona");
         }
     };
-    http.open('POST', 'http://127.0.0.1:8080/LoPibe/games');
+    http.open('POST', 'http://144.24.196.175:8080/LoPibe/games');
     http.setRequestHeader("Access-Control-Allow-Origin","*");
     http.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
     var name = "hola";
