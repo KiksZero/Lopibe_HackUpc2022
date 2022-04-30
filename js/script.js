@@ -193,7 +193,6 @@ function checkGuess () {
     }
 }
 
-
 function saveGame(){
     var http = new XMLHttpRequest();
     http.onreadystatechange = function() {
@@ -228,14 +227,20 @@ function updateTimer() {
     }
     else {
         --timer;
-        let timerView = document.getElementById("timer");
-        timerView.textContent = timer;
+        a
+        showTimer();
+        
     }
+}
+
+function showTimer() {
+    let timerView = document.getElementById("timer");
+    timerView.textContent = "Time: "+timer;
 }
 
 function showPuntuacion() {
     let scoreView = document.getElementById("score");
-    scoreView.textContent = puntuacion;
+    scoreView.textContent = "Score: "+ puntuacion;
 }
 
 function newPuntuacion() {
@@ -243,6 +248,17 @@ function newPuntuacion() {
     showPuntuacion();
 }
 
+initBoard();
+showPuntuacion();
+showTimer();
+cambioletra(phrase, "          ");
+
+var timeInterval = setInterval(function(){
+    updateTimer();}, 1000);
+
+var phraseInterval = setInterval(function(){
+    cambioletra(phrase, "          ");
+}, 1000);
 function notice(notice, status){
     var node = document.getElementById("notice");
     node.innerHTML="<p>"+notice+"<p>";

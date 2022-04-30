@@ -17,6 +17,7 @@
   align-items: center;
   text-transform: uppercase;
 
+
 }
 
 .special-box{
@@ -34,6 +35,15 @@
 
 .letter-row {
   display: flex;
+  flex-direction: row;
+}
+@media (max-width: 800px) {
+  .letter-box {
+    width: 2rem;
+    height: 2rem;
+    font-size: 1.5rem;
+  }
+
 }
 
 #keyboard-cont {

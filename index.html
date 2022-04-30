@@ -4,13 +4,16 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/main.css">
 	<title>
 		Lopibe The Game
 	</title>
+	<script src="js/index.js"></script>
+
 </head>
-<body>
+<body onload="getRanking()">
 	<div class="jumbotron text-center">
-  	<h1>Lopibe el juego</h1>
+  	<br><h1>Lopibe el juego</h1>
   	<p>uououououououououououo!</p>
 	</div>
 
@@ -18,8 +21,29 @@
 	  <div class="row">
 	    <div class="col-lg-3"></div>
 	    <div class="col-lg-6">
-	      <h3>Column 69 	</h3>
-	      <p>Lorem ipsum dolor..</p>
+		  <center>
+			<h3>THE BEST OF THE BEST</h3>
+			<div>
+				<table id="ranking">
+					<thead>
+						<td align="center">Nº</td>
+						<td align="center">NAME</td>
+						<td align="center">SCORE</td>
+						<td align="center">DATE</td>
+					</thead>
+					<tbody  id="ranking-table">
+					</tbody>
+				</table>
+			</div><br>
+
+			<center>
+				<h3>Think you are better than them? Choose a mode!</h3><br>
+				<div><button class="btn btn-success"> Single player </button></div> <br>
+				<div><button class="btn btn-danger"> One vs One </button></div> <br>
+				<h3>First time around here?</h3>
+				<div><button class="btn btn-info btn-sm"> How to play </button></div><br>
+			  </center>
+		  </center>
 	    </div>
 	    <div class="col-lg-3"></div>
 	  </div>
