@@ -5,6 +5,7 @@ let currentGuess = [];
 let nextLetter = 0;
 let timer = 180;
 let puntuacion = 0;
+let playerName = "dummy";
 
 function getphrase() {
     var http = new XMLHttpRequest();
@@ -198,9 +199,8 @@ function saveGame(){
     http.open('POST', 'http://144.24.196.175:8080/LoPibe/games');
     http.setRequestHeader("Access-Control-Allow-Origin","*");
     http.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
-    var name = "hola";
     var scoreDate = Date.now();
-    http.send(JSON.stringify({'playerName': name , 'score': puntuacion, 'scoreDate': scoreDate}));
+    http.send(JSON.stringify({'playerName': playerName , 'score': puntuacion, 'scoreDate': scoreDate}));
 }
 
 function showphrase() {
@@ -218,7 +218,8 @@ function updateTimer() {
         clearInterval(timeInterval);
         clearInterval(phraseInterval);
         showphrase();
-        saveGame();
+        inputName();
+        //saveGame();
     }
     else {
         --timer;
@@ -250,4 +251,13 @@ function notice(notice, status){
 function siguiente(){
     initBoard();
     document.getElementById("button-next").innerHTML = "";
+}
+
+function inputName(){
+    var node = document.getElementById("input-name");
+    node.innerHTML = "<input type='text' id='playerName'><button id='saveName'>Save</button>";
+    document.getElementById("saveName").addEventListener("click", function(){
+        playerName = document.getElementById("playerName").value;
+        saveGame();
+    });
 }
