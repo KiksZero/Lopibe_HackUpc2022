@@ -17,6 +17,11 @@
   align-items: center;
   text-transform: uppercase;
 
+
+}
+
+.special-box{
+  border: 2px solid #ffffff00;
 }
 
 .filled-box {
@@ -30,6 +35,15 @@
 
 .letter-row {
   display: flex;
+  flex-direction: row;
+}
+@media (max-width: 800px) {
+  .letter-box {
+    width: 2rem;
+    height: 2rem;
+    font-size: 1.5rem;
+  }
+
 }
 
 #keyboard-cont {
@@ -64,4 +78,13 @@
   margin: 0 2px;
   cursor: pointer;
   text-transform: uppercase;
+}
+
+
+.error{
+  color: red;
+}
+
+.correct{
+  color: green;
 }

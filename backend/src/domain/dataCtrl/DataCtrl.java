@@ -1,6 +1,7 @@
 package domain.dataCtrl;
 
 import data.GameDB;
+import data.PhraseDB;
 
 public class DataCtrl{
     static DataCtrl instance;
@@ -12,5 +13,9 @@ public class DataCtrl{
 
     public GameDataCtrl getGameDataCtrl(){
         return GameDB.getInstance();
+    }
+
+    public PhraseDataCtrl getPhraseDataCtrl(){
+        return PhraseDB.getInstance();
     }
 }
