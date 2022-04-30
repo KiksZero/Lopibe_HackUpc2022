@@ -81,6 +81,4 @@ function letterClicked(letter){
 	 box.classList.add("filled-box");
 }
 
-
-
 initBoard();
