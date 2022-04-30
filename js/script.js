@@ -44,7 +44,7 @@ function initBoard() {
 	for (let i = 0; i < phrase.length; i++) {
         let box = document.createElement("div")
         box.id = "input"+i;
-        box.className = "letter-box";
+        box.className = "letter-box2 typing-box";
         if (!phrase[i].match(/[a-z]/gi)){
             box.classList.add('special-box');
             box.textContent = phrase[i];
@@ -52,6 +52,7 @@ function initBoard() {
         row2.appendChild(box);
 	}
     board.appendChild(row);
+    board.appendChild(document.createElement("hr"));
     board.appendChild(row2);
 }
 

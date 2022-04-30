@@ -20,8 +20,20 @@
   justify-content: center;
   align-items: center;
   text-transform: uppercase;
+}
 
-
+.letter-box2 {
+  border-bottom: 2px solid gray;
+  border-radius: 3px;
+  margin: 2px;
+  font-size: 2.5rem;
+  font-weight: 700;
+  height: 3rem;
+  width: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
 }
 
 .special-box{
@@ -34,8 +46,7 @@
 }
 
 .filled-box2{
-  border: 2px solid green;
-  color:  lightgreen;
+  border-bottom: 2px solid green;
 }
 
 @media (min-width: 800px) {
@@ -47,6 +58,11 @@
 
 @media (max-width: 800px) {
   .letter-box {
+    width: 2rem;
+    height: 2rem;
+    font-size: 1.5rem;
+  }
+  .letter-box2 {
     width: 2rem;
     height: 2rem;
     font-size: 1.5rem;
