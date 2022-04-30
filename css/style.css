@@ -16,8 +16,11 @@
   justify-content: center;
   align-items: center;
   text-transform: uppercase;
+}
 
-
+.correct-box{
+  border: 2px solid green;
+  color:  lightgreen;
 }
 
 .special-box{

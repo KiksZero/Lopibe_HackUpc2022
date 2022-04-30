@@ -2,8 +2,9 @@ let phrase = "holaaaaaaaa";
 let NUMBER_OF_GUESSES = 6;
 let guessesRemaining = NUMBER_OF_GUESSES;
 let currentGuess = [];
+let acertados = [];
 let nextLetter = 0;
-let ini_timer = 100;
+let ini_timer = 10;
 let timer = ini_timer;
 let puntuacion = 0;
 let playerName = "dummy";
@@ -38,7 +39,8 @@ function initBoard() {
             box.textContent = phrase[j];
         }
         row.appendChild(box);
-		}
+        acertados.push(0);
+	}
 	//input boxes
 	let row2 = document.createElement("div");
 	row2.className = "letter-row";
@@ -127,24 +129,34 @@ function deleteLetter () {
 }
 
 function letterClicked(letter){
-	 let box = document.getElementById("phrase"+letter);
-	 box.textContent = phrase[letter];
-	 box.classList.add("filled-box");
+    if(activo){
+        let box = document.getElementById("phrase"+letter);
+        box.textContent = phrase[letter];
+        box.classList.add("filled-box");
+    }
 }
 
 function ocultarLetra(letter){
-    let box = document.getElementById("phrase"+letter);
-    box.textContent = "";
-    box.classList.remove("filled-box");
+    if (activo){
+        let box = document.getElementById("phrase"+letter);
+        box.textContent = "";
+        box.classList.remove("filled-box");
+    }
 }
 
-function calculate(s) {
-    return Math.floor(Math.random()*s.length);
+function calculate() {
+    var pos = []
+    for(var i = 0; i < acertados.length; ++i){
+        if(acertados[i] == 0 && (phrase[i].match(/[a-z]/gi)) && !document.getElementById("phrase"+i).matches('.filled-box')) pos.push(i);
+    }
+    var letra = pos[Math.floor(Math.random()*pos.length)];
+    console.log(letra);
+    return letra;
 }
 
 function cambioletra(solucion, oculta) {
-    let letra = calculate(solucion);
-    while (!(solucion[letra] >= 'a' && solucion[letra] <= 'z') || (solucion[letra] >= 'A' && solucion[letra] <= 'Z') && oculta[letra] != solucion[letra]) letra = calculate(solucion);
+    console.log("entra");
+    let letra = calculate();
     letterClicked(letra);
     setTimeout(function(){
         ocultarLetra(letra);
@@ -163,6 +175,16 @@ function checkGuess () {
         notice("Not enough letters!", 1);
     } else if (phrase != guessString) {
         notice("Cagaste", 1);
+        clearInterval(timeInterval);
+        clearInterval(phraseInterval);
+        setTimeout(1000);
+        mantenerAciertos();
+        timeInterval = setInterval(function(){
+            updateTimer();}, 1000);
+        
+        phraseInterval = setInterval(function(){
+            cambioletra(phrase, "          ");
+        }, 1000);
     } else if (guessString === phrase) {
         activo = false;
         notice("You guessed right! Game over!", 0);
@@ -203,7 +225,9 @@ function showphrase() {
     setTimeout(500);
     for (let i = 0; i < phrase.length; ++i) {
         if (phrase[i].match(/[a-z]/gi)){
-            letterClicked(i);
+            let box = document.getElementById("phrase"+i);
+            box.textContent = phrase[i];
+            box.classList.add("filled-box");
         }
     }
 }
@@ -220,7 +244,6 @@ function updateTimer() {
     else {
         --timer;
         showTimer();
-        
     }
 }
 
@@ -280,6 +303,19 @@ function inputName(){
     document.getElementById("saveName").addEventListener("click", function(){
         playerName = document.getElementById("playerName").value;
         saveGame();
-        window.location.href = "/"
+        window.location.href = "/";
     });
+}
+
+
+function mantenerAciertos(){
+    for (let i = 0; i < phrase.length; i++) {
+        let box = document.getElementById("phrase"+i);
+        if (phrase[i].match(/[a-z]/gi) && phrase[i] == currentGuess[i]){
+            box.classList.remove('filled-box');
+            box.classList.add('correct-box');
+            box.textContent = phrase[i];
+            acertados[i] = 1;
+        }
+	}
 }
