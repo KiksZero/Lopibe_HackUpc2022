@@ -1,7 +1,11 @@
 package api;
 
+import java.security.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -12,6 +16,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
 
 import domain.controllers.TxAddGame;
 import domain.controllers.TxGetGames;
@@ -39,10 +46,23 @@ public class Game {
 
 	@POST
 	@Path("/")
-	public Response addGame(@QueryParam("playerName") String playerName, @QueryParam("score") int score, @QueryParam("scoreDate") Date scoreDate){
-		TxAddGame tx = new TxAddGame(playerName, score, scoreDate);
-		tx.execute();
-		boolean result = tx.getResult();
+	@Consumes("application/json")
+	@Produces({MediaType.APPLICATION_JSON})
+	public Response addGame(String content){
+		boolean result = false;
+		System.out.print(content);
+		try {
+			JSONObject json = new JSONObject(content);
+			String playerName = json.getString("playerName");
+			int score = json.getInt("score");
+			//Timestamp ts = new Timestamp(json.getLong("scoreDate"));  
+			Date scoreDate = new Date(json.getLong("scoreDate"));
+			TxAddGame tx = new TxAddGame(playerName, score, scoreDate);
+			tx.execute();
+			result = tx.getResult();
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 		Response r = Response.ok(result).header("Access-Control-Allow-Origin", "*").build();
 		return r;
 	}

@@ -1,4 +1,4 @@
-const Phrase = "holaaaaaaa"
+const Phrase = "holaaaaaaa";
 
 let NUMBER_OF_GUESSES = 6;
 let guessesRemaining = NUMBER_OF_GUESSES;
@@ -11,7 +11,7 @@ function initBoard() {
         row.className = "letter-row";
         //frase boxes
         for (let j = 0; j < Phrase.length; j++) {
-            let box = document.createElement("div")
+            let box = document.createElement("div");
             box.addEventListener("click", function() {letterClicked(j);});
             box.id = "phrase"+j;
             box.className = "letter-box";
@@ -21,7 +21,7 @@ function initBoard() {
     	let row2 = document.createElement("div");
     	row2.className = "letter-row";
     	for (let i = 0; i < Phrase.length; i++) {
-            let box = document.createElement("div")
+            let box = document.createElement("div");
             box.id = "input"+i;
             box.className = "letter-box";
             row2.appendChild(box);
@@ -32,48 +32,46 @@ function initBoard() {
 
 document.addEventListener("keyup", (e) => {
 
-    let pressedKey = String(e.key)
+    let pressedKey = String(e.key);
     if (pressedKey === "Backspace" && nextLetter !== 0) {
-        deleteLetter()
-        return
+        deleteLetter();
+        return;
+    } else if (pressedKey === "Enter") {
+        checkGuess();
+        return;
     }
 
-    if (pressedKey === "Enter") {
-        checkGuess()
-        return
-    }
-
-    let found = pressedKey.match(/[a-z]/gi)
+    let found = pressedKey.match(/[a-z]/gi);
     if (!found || found.length > 1) {
-        return
+        return;
     } else {
-        insertLetter(pressedKey)
+        insertLetter(pressedKey);
     }
-})
+});
+
 
 function insertLetter (pressedKey) {
     if (nextLetter === Phrase.length) {
-        return
+        return;
     }
-    pressedKey = pressedKey.toLowerCase()
+    pressedKey = pressedKey.toLowerCase();
 
-    let row = document.getElementsByClassName("letter-row")[1]
-    let box = row.children[nextLetter]
-    box.textContent = pressedKey
-    box.classList.add("filled-box2")
-    currentGuess.push(pressedKey)
-    nextLetter += 1
+    let row = document.getElementsByClassName("letter-row")[1];
+    let box = row.children[nextLetter];
+    box.textContent = pressedKey;
+    box.classList.add("filled-box2");
+    currentGuess.push(pressedKey);
+    nextLetter += 1;
 }
 
 function deleteLetter () {
-    let row = document.getElementsByClassName("letter-row")[1]
-    let box = row.children[nextLetter - 1]
-    box.textContent = ""
-    box.classList.remove("filled-box2")
-    currentGuess.pop()
-    nextLetter -= 1
+    let row = document.getElementsByClassName("letter-row")[1];
+    let box = row.children[nextLetter - 1];
+    box.textContent = "";
+    box.classList.remove("filled-box2");
+    currentGuess.pop();
+    nextLetter -= 1;
 }
-
 
 function letterClicked(letter){
 	 let box = document.getElementById("phrase"+letter);
@@ -100,17 +98,11 @@ function newranking() {
 
 }
 
-function showpalabra(s) {
-    console.log(s);
-    
-}
-
 function calculate(s) {
     return Math.floor(Math.random()*s.length);
 }
 
 function cambioletra(solucion, oculta) {
-    var oc = oculta
     let letra = calculate(solucion);
     while (!(solucion[letra] >= 'a' && solucion[letra] <= 'z') || (solucion[letra] >= 'A' && solucion[letra] <= 'Z') && oculta[letra] != solucion[letra]) letra = calculate(solucion);
     letterClicked(letra);
@@ -125,4 +117,45 @@ setInterval(function(){
     cambioletra("holaaaaaaa", "          ");
 }, 2000);
 
+function checkGuess () {
+    let row = document.getElementsByClassName("letter-row")[1];
+    let guessString = '';
 
+    for (const val of currentGuess) {
+        guessString += val;
+    }
+
+    if (guessString.length != Phrase.length) {
+        alert("Not enough letters!");
+    } else if (Phrase != guessString) {
+        alert("Cagaste");
+    } else if (guessString === Phrase) {
+        alert("You guessed right! Game over!");
+        saveGame();
+    } 
+
+    currentGuess = [];
+    nextLetter = 0;
+    for (let i = 0; i < Phrase.length; i++) {
+        let box = document.getElementById("input"+i);
+        box.classList.remove("filled-box2");
+        box.textContent = '';
+    }
+}
+
+
+function saveGame(){
+    var http = new XMLHttpRequest();
+    http.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            alert("funciona");
+        }
+    };
+    http.open('POST', 'http://localhost:8080/LoPibe/games');
+    http.setRequestHeader("Access-Control-Allow-Origin","*");
+    http.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
+    var name = "hola";
+    var score = 10;
+    var scoreDate = Date.now();
+    http.send(JSON.stringify({'playerName': name , 'score': score, 'scoreDate': scoreDate}));
+}

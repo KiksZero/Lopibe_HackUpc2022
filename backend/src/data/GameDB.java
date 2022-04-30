@@ -26,7 +26,7 @@ public class GameDB implements GameDataCtrl{
         try {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://144.24.196.175:3306/HACKUPC?allowPublicKeyRetrieval=true&useSSL=false", "pibes", "pibes");
-            insert = conn.prepareStatement("INSERT INTO Game(playerName, score, scoreDate) VALUES (?, ?, ?)");
+            insert = conn.prepareStatement("INSERT INTO Game(playerName, score, scoreDate) VALUES (?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
             select = conn.prepareStatement("SELECT * FROM Game WHERE playerName = ? AND score = ? AND scoreDate = ?");
             selectAll = conn.prepareStatement("SELECT * FROM Game ORDER BY score DESC");
             delete = conn.prepareStatement("DELETE FROM Game WHERE playerName = ? AND score = ? AND scoreDate = ?");
@@ -48,7 +48,7 @@ public class GameDB implements GameDataCtrl{
             insert.setString(1, g.getPlayerName());
             insert.setInt(2, g.getScore());
             Timestamp ts = new Timestamp(g.getScoreDate().getTime());
-            insert.setTimestamp(1, ts);
+            insert.setTimestamp(3, ts);
             insert.executeUpdate();
             ResultSet r = insert.getGeneratedKeys();
             if (r.next()) {
