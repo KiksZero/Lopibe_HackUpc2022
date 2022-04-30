@@ -1,5 +1,6 @@
 package domain.dataCtrl;
 
+import data.DuelosDB;
 import data.GameDB;
 import data.PhraseDB;
 
@@ -17,5 +18,9 @@ public class DataCtrl{
 
     public PhraseDataCtrl getPhraseDataCtrl(){
         return PhraseDB.getInstance();
+    }
+
+    public DueloDataCtrl getDueloDataCtrl(){
+        return DuelosDB.getInstance();
     }
 }
