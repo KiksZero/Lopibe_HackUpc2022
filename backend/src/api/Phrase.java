@@ -13,7 +13,7 @@ public class Phrase {
 	@GET
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Produces({MediaType.APPLICATION_JSON}) 
-	@Path("/get")
+	@Path("/")
 	public Response phrase() {
 		String result = "This is a test";
 		return Response.ok(result).build();
