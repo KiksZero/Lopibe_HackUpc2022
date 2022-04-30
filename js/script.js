@@ -1,5 +1,4 @@
-const Phrase = "holaaaaaaa";
-
+let phrase = "holaaaaaaaa";
 let NUMBER_OF_GUESSES = 6;
 let guessesRemaining = NUMBER_OF_GUESSES;
 let currentGuess = [];
@@ -7,28 +6,42 @@ let nextLetter = 0;
 let timer = 40;
 let puntuacion = 0;
 
+function getphrase() {
+    var http = new XMLHttpRequest();
+    http.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            phrase = this.responseText;
+        }
+    };
+    http.open('GET', 'http://127.0.0.1:8080/LoPibe/phrase', false);
+    http.setRequestHeader("Access-Control-Allow-Origin","*");
+    http.send();
+}
+
 function initBoard() {
-    	let board = document.getElementById("game-board");
-        let row = document.createElement("div");
-        row.className = "letter-row";
-        //frase boxes
-        for (let j = 0; j < Phrase.length; j++) {
-            let box = document.createElement("div");
-            box.id = "phrase"+j;
-            box.className = "letter-box";
-            row.appendChild(box);
-    		}
-    	//input boxes
-    	let row2 = document.createElement("div");
-    	row2.className = "letter-row";
-    	for (let i = 0; i < Phrase.length; i++) {
-            let box = document.createElement("div");
-            box.id = "input"+i;
-            box.className = "letter-box";
-            row2.appendChild(box);
-    		}
-        board.appendChild(row);
-        board.appendChild(row2);
+    getphrase();
+	let board = document.getElementById("game-board");
+    let row = document.createElement("div");
+    row.className = "letter-row";
+    //frase boxes
+    for (let j = 0; j < phrase.length; j++) {
+        let box = document.createElement("div")
+        box.addEventListener("click", function() {letterClicked(j);});
+        box.id = "phrase"+j;
+        box.className = "letter-box";
+        row.appendChild(box);
+		}
+	//input boxes
+	let row2 = document.createElement("div");
+	row2.className = "letter-row";
+	for (let i = 0; i < phrase.length; i++) {
+        let box = document.createElement("div")
+        box.id = "input"+i;
+        box.className = "letter-box";
+        row2.appendChild(box);
+		}
+    board.appendChild(row);
+    board.appendChild(row2);
 }
 
 //Escribir con teclados
@@ -70,7 +83,7 @@ document.getElementById("keyboard-cont").addEventListener("click", (e) => {
 })
 
 function insertLetter (pressedKey) {
-    if (nextLetter === Phrase.length) {
+    if (nextLetter === phrase.length) {
         return;
     }
     pressedKey = pressedKey.toLowerCase();
@@ -94,7 +107,7 @@ function deleteLetter () {
 
 function letterClicked(letter){
 	 let box = document.getElementById("phrase"+letter);
-	 box.textContent = Phrase[letter];
+	 box.textContent = phrase[letter];
 	 box.classList.add("filled-box");
 }
 
@@ -123,7 +136,7 @@ var timeInterval = setInterval(function(){
     updateTimer();}, 1000);
 
 var phraseInterval = setInterval(function(){
-    cambioletra("holaaaaaaa", "          ");
+    cambioletra(phrase, "          ");
 }, 2000);
 
 function checkGuess () {
@@ -134,22 +147,22 @@ function checkGuess () {
         guessString += val;
     }
 
-    if (guessString.length != Phrase.length) {
+    if (guessString.length != phrase.length) {
         //alert("Not enough letters!");
         notice("Not enough letters!", 1)
-    } else if (Phrase != guessString) {
+    } else if (phrase != guessString) {
         //alert("Cagaste");
         notice("Cagaste", 1)
-    } else if (guessString === Phrase) {
+    } else if (guessString === phrase) {
         //alert("You guessed right! Game over!");
         notice("You guessed right! Game over!", 0);
         newPuntuacion();
-        showPhrase();
+        showphrase();
     } 
 
     currentGuess = [];
     nextLetter = 0;
-    for (let i = 0; i < Phrase.length; i++) {
+    for (let i = 0; i < phrase.length; i++) {
         let box = document.getElementById("input"+i);
         box.classList.remove("filled-box2");
         box.textContent = '';
@@ -172,9 +185,9 @@ function saveGame(){
     http.send(JSON.stringify({'playerName': name , 'score': puntuacion, 'scoreDate': scoreDate}));
 }
 
-function showPhrase() {
+function showphrase() {
     setTimeout(500);
-    for (let i = 0; i < Phrase.length; ++i) {
+    for (let i = 0; i < phrase.length; ++i) {
         letterClicked(i);
     }
 }
@@ -184,7 +197,7 @@ function updateTimer() {
         notice("Too slow...");
         clearInterval(timeInterval);
         clearInterval(phraseInterval);
-        showPhrase();
+        showphrase();
         saveGame();
     }
     else {
