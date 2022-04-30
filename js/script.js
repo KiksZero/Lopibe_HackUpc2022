@@ -14,7 +14,6 @@ function initBoard() {
         //frase boxes
         for (let j = 0; j < Phrase.length; j++) {
             let box = document.createElement("div");
-            box.addEventListener("click", function() {letterClicked(j);});
             box.id = "phrase"+j;
             box.className = "letter-box";
             row.appendChild(box);
@@ -105,26 +104,6 @@ function ocultarLetra(letter){
     box.classList.remove("filled-box");
 }
 
-function getranking() {
-
-}
-
-function showranking() {
-
-}
-
-function newranking() {
-    let a = getranking();
-
-}
-
-function showpalabra(s) {
-    console.log(s);
-    
-}
-
-
-
 function calculate(s) {
     return Math.floor(Math.random()*s.length);
 }
@@ -156,12 +135,16 @@ function checkGuess () {
     }
 
     if (guessString.length != Phrase.length) {
-        alert("Not enough letters!");
+        //alert("Not enough letters!");
+        notice("Not enough letters!", 1)
     } else if (Phrase != guessString) {
-        alert("Cagaste");
+        //alert("Cagaste");
+        notice("Cagaste", 1)
     } else if (guessString === Phrase) {
-        alert("You guessed right! Game over!");
+        //alert("You guessed right! Game over!");
+        notice("You guessed right! Game over!", 0);
         newPuntuacion();
+        showPhrase();
     } 
 
     currentGuess = [];
@@ -198,7 +181,7 @@ function showPhrase() {
 
 function updateTimer() {
     if (timer === 0) {
-        alert("Too slow...");
+        notice("Too slow...");
         clearInterval(timeInterval);
         clearInterval(phraseInterval);
         showPhrase();
@@ -219,4 +202,14 @@ function showPuntuacion() {
 function newPuntuacion() {
     puntuacion += 10*timer;
     showPuntuacion();
+}
+
+function notice(notice, status){
+    var node = document.getElementById("notice");
+    node.innerHTML="<p>"+notice+"<p>";
+    if (status == 0) {
+        node.className="correct";
+    } else {
+        node.className="error";
+    }
 }

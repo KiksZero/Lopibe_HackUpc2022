@@ -65,3 +65,12 @@
   cursor: pointer;
   text-transform: uppercase;
 }
+
+
+.error{
+  color: red;
+}
+
+.correct{
+  color: green;
+}
