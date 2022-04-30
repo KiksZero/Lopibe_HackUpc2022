@@ -4,6 +4,9 @@ let NUMBER_OF_GUESSES = 6;
 let guessesRemaining = NUMBER_OF_GUESSES;
 let currentGuess = [];
 let nextLetter = 0;
+let timer = 5;
+let score = 0;
+let puntuacion = 0;
 
 function initBoard() {
     	let board = document.getElementById("game-board");
@@ -137,8 +140,11 @@ function cambioletra(solucion, oculta) {
 }
 
 initBoard();
+showpuntuacion();
+var timeInterval = setInterval(function(){
+    updateTimer();}, 1000);
 
-setInterval(function(){
+var phraseInterval = setInterval(function(){
     cambioletra("holaaaaaaa", "          ");
 }, 2000);
 
@@ -183,4 +189,46 @@ function saveGame(){
     var score = 10;
     var scoreDate = Date.now();
     http.send(JSON.stringify({'playerName': name , 'score': score, 'scoreDate': scoreDate}));
+}
+
+function getTimer() {
+    return this.timer;
+}
+
+function showPhrase() {
+    setTimeout(500);
+    for (let i = 0; i < Phrase.length; ++i) {
+        letterClicked(i);
+    }
+}
+
+function updateTimer() {
+    if (timer === 0) {
+        alert("Too slow...");
+        clearInterval(timeInterval);
+        clearInterval(phraseInterval);
+        showPhrase();
+    }
+    else {
+        --timer;
+        let timerView = document.getElementById("timer");
+        timerView.textContent = timer;
+    }
+}
+
+function getpuntuacion() {
+    return puntuacion;
+}
+
+function showpuntuacion() {
+    let scoreView = document.getElementById("score");
+    scoreView.textContent = score;
+}
+
+function newpuntuacion() {
+    let actual = getpuntuacion();
+    let time_remaining = getTimer();
+    actual += 10*time_remaining;
+    this.puntuacion = actual;
+    showpuntuacion();
 }
