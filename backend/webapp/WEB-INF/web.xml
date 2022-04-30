@@ -3,7 +3,7 @@
          version="2.5" 
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"> 
-  <display-name>LoPibes</display-name>
+  <display-name>LoPibe</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
@@ -13,7 +13,7 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   <servlet>
-  	<servlet-name>LoPibes</servlet-name>
+  	<servlet-name>LoPibe</servlet-name>
   	<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
   	<init-param>
   		<param-name>com.sun.jersey.config.property.package</param-name>
@@ -26,7 +26,7 @@
   	<load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>LoPibes</servlet-name>
+  	<servlet-name>LoPibe</servlet-name>
   	<url-pattern>/services/*</url-pattern>
   </servlet-mapping>
 </web-app>
