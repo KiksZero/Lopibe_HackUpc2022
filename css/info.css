@@ -1,0 +1,42 @@
+/*De aqui hasta linia 40 how to play y fondo*/
+.top {
+    color: #69634d;
+    font-size: 20px;
+    font-weight: 700;
+    border-radius: 7px;
+    display: flex;
+    min-height: 38px;
+    padding: 0 25px;
+    text-align: center;
+    background: var(--bg5);
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    color: var(--color);
+    font: 18px var(--font_family);
+    text-rendering: optimizeLegibility;
+}
+
+:root {
+    --color: #363e52;
+    --scroll_width: 17px;
+    --font_family: 'Montserrat','Open Sans',sans-serif;
+    --bg: #fff;
+    --bg2: #fff;
+    --bg3: #f2efe4;
+    --bg4: #f2e4e7;
+    --bg5: #f3f1ea;
+    --color2: #8b887d;
+    --color3: #a35868;
+    --color4: #3d424b;
+    --color5: #3d424b;
+}
+/*Aqui acaba how to play y fondo*/
+
