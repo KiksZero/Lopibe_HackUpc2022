@@ -4,7 +4,7 @@ let guessesRemaining = NUMBER_OF_GUESSES;
 let currentGuess = [];
 let acertados = [];
 let nextLetter = 0;
-let ini_timer = 180;
+let ini_timer = 10;
 let timer = ini_timer;
 let puntuacion = 0;
 let playerName = "dummy";
@@ -212,7 +212,7 @@ function saveGame(){
     var http = new XMLHttpRequest();
     http.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            alert("funciona");
+            window.location.href = "/";
         }
     };
     http.open('POST', 'http://144.24.196.175:8080/LoPibe/games');
@@ -309,7 +309,6 @@ function inputName(){
     document.getElementById("saveName").addEventListener("click", function(){
         playerName = document.getElementById("playerName").value;
         saveGame();
-        window.location.href = "/";
     });
 }
 
