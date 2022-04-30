@@ -1,33 +1,45 @@
-const Phrase = "holaaaaaaa"
-
+let Phrase = "NULL";
 let NUMBER_OF_GUESSES = 6;
 let guessesRemaining = NUMBER_OF_GUESSES;
 let currentGuess = [];
 let nextLetter = 0;
 
+function getPhrase() {
+    var http = new XMLHttpRequest();
+    http.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            Phrase = this.responseText;
+        }
+    };
+    http.open('GET', 'http://127.0.0.1:8080/LoPibe/phrase', false);
+    http.setRequestHeader("Access-Control-Allow-Origin","*");
+    http.send();
+}
+
 function initBoard() {
-    	let board = document.getElementById("game-board");
-        let row = document.createElement("div");
-        row.className = "letter-row";
-        //frase boxes
-        for (let j = 0; j < Phrase.length; j++) {
-            let box = document.createElement("div")
-            box.addEventListener("click", function() {letterClicked(j);});
-            box.id = "phrase"+j;
-            box.className = "letter-box";
-            row.appendChild(box);
-    		}
-    	//input boxes
-    	let row2 = document.createElement("div");
-    	row2.className = "letter-row";
-    	for (let i = 0; i < Phrase.length; i++) {
-            let box = document.createElement("div")
-            box.id = "input"+i;
-            box.className = "letter-box";
-            row2.appendChild(box);
-    		}
-        board.appendChild(row);
-        board.appendChild(row2);
+    getPhrase();
+	let board = document.getElementById("game-board");
+    let row = document.createElement("div");
+    row.className = "letter-row";
+    //frase boxes
+    for (let j = 0; j < Phrase.length; j++) {
+        let box = document.createElement("div")
+        box.addEventListener("click", function() {letterClicked(j);});
+        box.id = "phrase"+j;
+        box.className = "letter-box";
+        row.appendChild(box);
+		}
+	//input boxes
+	let row2 = document.createElement("div");
+	row2.className = "letter-row";
+	for (let i = 0; i < Phrase.length; i++) {
+        let box = document.createElement("div")
+        box.id = "input"+i;
+        box.className = "letter-box";
+        row2.appendChild(box);
+		}
+    board.appendChild(row);
+    board.appendChild(row2);
 }
 
 document.addEventListener("keyup", (e) => {
@@ -122,7 +134,7 @@ function cambioletra(solucion, oculta) {
 initBoard();
 
 setInterval(function(){
-    cambioletra("holaaaaaaa", "          ");
+    cambioletra(Phrase, "          ");
 }, 2000);
 
 
