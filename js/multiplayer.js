@@ -4,8 +4,16 @@ let acertados = [];
 let nextLetter = 0;
 let timer = 120;
 let puntuacion = 0;
-let playerName = "dummy";
+let playerName = "";
+let player1 = "Juan"
+let player2 = "John"
 let activo = true;
+
+
+function initializeNames(){
+    var nameView = document.getElementById("players");
+    nameView.textContent = player1 + " VS " + player2;
+}
 
 function getphrase() {
     var http = new XMLHttpRequest();
@@ -21,6 +29,7 @@ function getphrase() {
 
 function initBoard() {
     activo = true;
+    initializeNames();
     acertados = [];
     getphrase();
 	let board = document.getElementById("game-board");
