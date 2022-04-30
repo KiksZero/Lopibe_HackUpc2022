@@ -3,9 +3,10 @@ let NUMBER_OF_GUESSES = 6;
 let guessesRemaining = NUMBER_OF_GUESSES;
 let currentGuess = [];
 let nextLetter = 0;
-let timer = 180;
+let timer = 10;
 let puntuacion = 0;
 let playerName = "dummy";
+let activo = true;
 
 function getphrase() {
     var http = new XMLHttpRequest();
@@ -55,21 +56,22 @@ function initBoard() {
 
 //Escribir con teclados
 document.addEventListener("keyup", (e) => {
+    if (activo){
+        let pressedKey = String(e.key);
+        if (pressedKey === "Backspace" && nextLetter !== 0) {
+            deleteLetter();
+            return;
+        } else if (pressedKey === "Enter") {
+            checkGuess();
+            return;
+        }
 
-    let pressedKey = String(e.key);
-    if (pressedKey === "Backspace" && nextLetter !== 0) {
-        deleteLetter();
-        return;
-    } else if (pressedKey === "Enter") {
-        checkGuess();
-        return;
-    }
-
-    let found = pressedKey.match(/[a-z]/gi);
-    if (!found || found.length > 1) {
-        return;
-    } else {
-        insertLetter(pressedKey);
+        let found = pressedKey.match(/[a-z]/gi);
+        if (!found || found.length > 1) {
+            return;
+        } else {
+            insertLetter(pressedKey);
+        }
     }
 });
 
@@ -214,12 +216,12 @@ function showphrase() {
 
 function updateTimer() {
     if (timer === 0) {
+        activo = false;
         notice("Too slow...");
         clearInterval(timeInterval);
         clearInterval(phraseInterval);
         showphrase();
         inputName();
-        //saveGame();
     }
     else {
         --timer;
