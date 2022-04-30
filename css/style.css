@@ -16,10 +16,16 @@
   justify-content: center;
   align-items: center;
   text-transform: uppercase;
+
 }
 
 .filled-box {
   border: 2px solid black;
+}
+
+.filled-box2{
+  border: 2px solid green;
+  color:  lightgreen;
 }
 
 .letter-row {
