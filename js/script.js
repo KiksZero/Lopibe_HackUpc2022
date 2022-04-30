@@ -30,6 +30,7 @@ function initBoard() {
         board.appendChild(row2);
 }
 
+//Escribir con teclados
 document.addEventListener("keyup", (e) => {
 
     let pressedKey = String(e.key)
@@ -49,6 +50,23 @@ document.addEventListener("keyup", (e) => {
     } else {
         insertLetter(pressedKey)
     }
+})
+
+document.getElementById("keyboard-cont").addEventListener("click", (e) => {
+    const target = e.target
+    
+    if (!target.classList.contains("keyboard-button")) {
+        return
+    }
+    let key = target.textContent
+
+    if (key === "Del") {
+        key = "Backspace"
+    } 
+    if (key === "↩") {
+        key = "Enter"
+    }
+    document.dispatchEvent(new KeyboardEvent("keyup", {'key': key}))
 })
 
 function insertLetter (pressedKey) {
@@ -104,6 +122,8 @@ function showpalabra(s) {
     console.log(s);
     
 }
+
+
 
 function calculate(s) {
     return Math.floor(Math.random()*s.length);
