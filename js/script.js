@@ -271,5 +271,6 @@ function inputName(){
     document.getElementById("saveName").addEventListener("click", function(){
         playerName = document.getElementById("playerName").value;
         saveGame();
+        window.location.href = "/"
     });
 }
