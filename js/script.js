@@ -181,8 +181,8 @@ function checkGuess () {
         clearInterval(phraseInterval);
         setTimeout(1000);
         mantenerAciertos();
-        timeInterval = setInterval(function(){
-            updateTimer();}, 1000);
+        updateTimerFallo(); 
+        timeInterval = setInterval(function(){updateTimer();}, 1000);       
         phraseInterval = setInterval(function(){
             cambioletra(phrase, "          ");
         }, 1000);
@@ -231,6 +231,12 @@ function showphrase() {
             box.classList.add("filled-box");
         }
     }
+}
+
+function updateTimerFallo() {
+    timer -= 10;
+    if (timer < 0) timer = 0;
+    showTimer();
 }
 
 function updateTimer() {
