@@ -21,6 +21,7 @@ function getphrase() {
 }
 
 function initBoard() {
+    activo = true;
     getphrase();
 	let board = document.getElementById("game-board");
     board.innerHTML = "";
@@ -171,9 +172,11 @@ function checkGuess () {
     } else if (phrase != guessString) {
         notice("Cagaste", 1);
     } else if (guessString === phrase) {
+        activo = false;
         notice("You guessed right! Game over!", 0);
         newPuntuacion();
         clearInterval(timeInterval);
+        clearInterval(phraseInterval);
         showphrase();
         document.getElementById("button-next").innerHTML="<button id='next' class='btn btn-danger'>Next</button>";
         document.getElementById("next").addEventListener("click", function() {
