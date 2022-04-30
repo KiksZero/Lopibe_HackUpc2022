@@ -3,7 +3,7 @@ let NUMBER_OF_GUESSES = 6;
 let guessesRemaining = NUMBER_OF_GUESSES;
 let currentGuess = [];
 let nextLetter = 0;
-let timer = 40;
+let timer = 180;
 let puntuacion = 0;
 
 function getphrase() {
@@ -26,9 +26,12 @@ function initBoard() {
     //frase boxes
     for (let j = 0; j < phrase.length; j++) {
         let box = document.createElement("div")
-        box.addEventListener("click", function() {letterClicked(j);});
         box.id = "phrase"+j;
         box.className = "letter-box";
+        if (!phrase[j].match(/[a-z]/gi)){
+            box.classList.add('special-box');
+            box.textContent = phrase[j];
+        }
         row.appendChild(box);
 		}
 	//input boxes
@@ -38,6 +41,10 @@ function initBoard() {
         let box = document.createElement("div")
         box.id = "input"+i;
         box.className = "letter-box";
+        if (!phrase[i].match(/[a-z]/gi)){
+            box.classList.add('special-box');
+            box.textContent = phrase[i];
+        }
         row2.appendChild(box);
 		}
     board.appendChild(row);
@@ -83,6 +90,10 @@ document.getElementById("keyboard-cont").addEventListener("click", (e) => {
 })
 
 function insertLetter (pressedKey) {
+    if (!phrase[nextLetter].match(/[a-z]/gi)){
+        nextLetter += 1;
+        currentGuess.push(" ");
+    }
     if (nextLetter === phrase.length) {
         return;
     }
@@ -97,6 +108,10 @@ function insertLetter (pressedKey) {
 }
 
 function deleteLetter () {
+    if (!phrase[nextLetter - 1].match(/[a-z]/gi)){
+        currentGuess.pop();
+        nextLetter += 1;
+    }
     let row = document.getElementsByClassName("letter-row")[1];
     let box = row.children[nextLetter - 1];
     box.textContent = "";
@@ -157,6 +172,7 @@ function checkGuess () {
         //alert("You guessed right! Game over!");
         notice("You guessed right! Game over!", 0);
         newPuntuacion();
+        clearInterval(timeInterval);
         showphrase();
     } 
 
@@ -188,7 +204,9 @@ function saveGame(){
 function showphrase() {
     setTimeout(500);
     for (let i = 0; i < phrase.length; ++i) {
-        letterClicked(i);
+        if (phrase[i].match(/[a-z]/gi)){
+            letterClicked(i);
+        }
     }
 }
 

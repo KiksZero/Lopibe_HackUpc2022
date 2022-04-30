@@ -12,7 +12,6 @@ import domain.controllers.TxGetPhrase;
 
 @Path("/phrase")
 public class Phrase {
-	//144.24.196.175/lopibes/services/phrase
 	@GET
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Produces({MediaType.APPLICATION_JSON}) 
