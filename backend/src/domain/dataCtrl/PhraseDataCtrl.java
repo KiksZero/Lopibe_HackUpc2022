@@ -1,14 +1,8 @@
 package domain.dataCtrl;
 
-import domain.Game;
+import domain.Phrase;
 
-import java.util.Date;
-import java.util.ArrayList;
-
-public interface GameDataCtrl {
-    public boolean insert(Game g);
-    public void delete(String playerName, int score, Date scoreDate);
-    public void update(Game g);
-    public Game select(String playerName, int score, Date scoreDate);
-    public ArrayList<Game> selectAll();
+public interface PhraseDataCtrl {
+    public Phrase select(int idPhrase);
+    public int biggestIndex();
 }

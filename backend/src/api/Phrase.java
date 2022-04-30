@@ -7,6 +7,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import domain.controllers.TxGetPhrase;
+
 @Path("/phrase")
 public class Phrase {
 	//144.24.196.175/lopibes/services/phrase
@@ -15,7 +17,9 @@ public class Phrase {
 	@Produces({MediaType.APPLICATION_JSON}) 
 	@Path("/")
 	public Response phrase() {
-		String result = "This is a test";
+		TxGetPhrase tx = new TxGetPhrase();
+		tx.execute();
+		String result = tx.getResult();
 		return Response.ok(result).build();
 	}
 }
