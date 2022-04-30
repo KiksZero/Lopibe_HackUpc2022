@@ -3,7 +3,8 @@ let NUMBER_OF_GUESSES = 6;
 let guessesRemaining = NUMBER_OF_GUESSES;
 let currentGuess = [];
 let nextLetter = 0;
-let timer = 100;
+let ini_timer = 100;
+let timer = ini_timer;
 let puntuacion = 0;
 let playerName = "dummy";
 let activo = true;
@@ -150,15 +151,6 @@ function cambioletra(solucion, oculta) {
     }, 1000);
 }
 
-initBoard();
-showPuntuacion();
-var timeInterval = setInterval(function(){
-    updateTimer();}, 1000);
-
-var phraseInterval = setInterval(function(){
-    cambioletra(phrase, "          ");
-}, 2000);
-
 function checkGuess () {
     let row = document.getElementsByClassName("letter-row")[1];
     let guessString = '';
@@ -227,7 +219,6 @@ function updateTimer() {
     }
     else {
         --timer;
-        a
         showTimer();
         
     }
@@ -259,6 +250,7 @@ var timeInterval = setInterval(function(){
 var phraseInterval = setInterval(function(){
     cambioletra(phrase, "          ");
 }, 1000);
+
 function notice(notice, status){
     var node = document.getElementById("notice");
     node.innerHTML="<p>"+notice+"<p>";
@@ -277,8 +269,9 @@ function siguiente(){
     
     phraseInterval = setInterval(function(){
         cambioletra(phrase, "          ");
-    }, 2000);
+    }, 1000);
     notice("", 0);
+    timer = ini_timer;
 }
 
 function inputName(){
