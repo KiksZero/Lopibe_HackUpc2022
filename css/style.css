@@ -20,6 +20,10 @@
 
 }
 
+.special-box{
+  border: 2px solid #ffffff00;
+}
+
 .filled-box {
   border: 2px solid black;
 }

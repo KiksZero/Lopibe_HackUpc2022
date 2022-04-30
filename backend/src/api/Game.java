@@ -55,7 +55,6 @@ public class Game {
 			JSONObject json = new JSONObject(content);
 			String playerName = json.getString("playerName");
 			int score = json.getInt("score");
-			//Timestamp ts = new Timestamp(json.getLong("scoreDate"));  
 			Date scoreDate = new Date(json.getLong("scoreDate"));
 			TxAddGame tx = new TxAddGame(playerName, score, scoreDate);
 			tx.execute();
