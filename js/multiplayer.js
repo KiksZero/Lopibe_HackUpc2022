@@ -2,8 +2,7 @@ let phrase = "";
 let currentGuess = [];
 let acertados = [];
 let nextLetter = 0;
-let ini_timer = 120;
-let timer = ini_timer;
+let timer = 120;
 let puntuacion = 0;
 let playerName = "dummy";
 let activo = true;
@@ -179,22 +178,22 @@ function checkGuess () {
         clearInterval(phraseInterval);
         setTimeout(1000);
         mantenerAciertos();
-        updateTimerFallo(); 
         timeInterval = setInterval(function(){updateTimer();}, 1000);       
         phraseInterval = setInterval(function(){
             cambioletra(phrase, "          ");
         }, 1000);
+        penalty();
+
     } else if (guessString === phrase) {
         activo = false;
-        notice("You guessed right! Game over!", 0);
+        notice("You guessed right! Next!", 0);
         newPuntuacion();
-        clearInterval(timeInterval);
-        clearInterval(phraseInterval);
+        //clearInterval(timeInterval);
+        //clearInterval(phraseInterval);
         showphrase();
-        document.getElementById("button-next").innerHTML="<button id='next' class='btn btn-danger'>Next</button>";
-        document.getElementById("next").addEventListener("click", function() {
-            siguiente();
-        });
+        setTimeout(2000);
+        siguiente();
+        
     } 
 
     currentGuess = [];
@@ -218,6 +217,23 @@ function saveGame(){
     http.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
     var scoreDate = Date.now();
     http.send(JSON.stringify({'playerName': playerName , 'score': puntuacion, 'scoreDate': scoreDate}));
+}
+
+function penalty(){
+   var penalty = 5;
+   activo = false
+   let penaltyview =  document.getElementById("penalty_timer");
+   var timeout= setTimeout(function(){
+        activo = true;
+        clearInterval(penaltyInterval);
+        penaltyview.textContent = "";
+        notice("",0);
+    },5000);
+    
+    var penaltyInterval = setInterval(function() {
+        penaltyview.textContent = "Time left: " + penalty.toFixed(2)+"s";
+        penalty -= 0.1;
+    }, 100);
 }
 
 function showphrase() {
@@ -298,7 +314,6 @@ function siguiente(){
         cambioletra(phrase, "          ");
     }, 1000);
     notice("", 0);
-    timer = ini_timer;
 }
 
 function inputName(){
