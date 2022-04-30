@@ -3,7 +3,7 @@ let NUMBER_OF_GUESSES = 6;
 let guessesRemaining = NUMBER_OF_GUESSES;
 let currentGuess = [];
 let nextLetter = 0;
-let timer = 10;
+let timer = 100;
 let puntuacion = 0;
 let playerName = "dummy";
 let activo = true;
@@ -256,6 +256,13 @@ function notice(notice, status){
 function siguiente(){
     initBoard();
     document.getElementById("button-next").innerHTML = "";
+    timeInterval = setInterval(function(){
+        updateTimer();}, 1000);
+    
+    phraseInterval = setInterval(function(){
+        cambioletra(phrase, "          ");
+    }, 2000);
+    notice("", 0);
 }
 
 function inputName(){
