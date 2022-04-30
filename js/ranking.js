@@ -17,7 +17,11 @@ function generateTable(text){
     for (node of json){
         i = i + 1;
         var child = document.createElement("tr");
-        child.innerHTML = "<td align='center'>" + i + "</td><td align='center'>" + node.playerName + "</td><td align='center'>" + node.score + "</td><td align='center'>" + node.scoreDate + "</td>";
+        if(i == 1) child.innerHTML = "<td align='center'><img class='corona' src=images/oro.png>" + i;
+        else if(i == 2) child.innerHTML = "<td align='center'><img class='corona' src=images/plata.png>" + i;
+        else if(i == 3) child.innerHTML = "<td align='center'><img class='corona' src=images/bronce.png>" + i;
+        else child.innerHTML = "<td align='center'><img class='corona' src=images/transparente.png>" + i;
+        child.innerHTML += "</td><td align='center'>" + node.playerName + "</td><td align='center'>" + node.score + "</td><td align='center'>" + node.scoreDate + "</td>";
         element.appendChild(child);
     }
 }
