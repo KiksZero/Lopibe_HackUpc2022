@@ -188,7 +188,7 @@ function checkGuess () {
         }, 1000);
     } else if (guessString === phrase) {
         activo = false;
-        notice("You guessed right! Game over!", 0);
+        notice("You guessed right! Next!", 0);
         newPuntuacion();
         clearInterval(timeInterval);
         clearInterval(phraseInterval);
