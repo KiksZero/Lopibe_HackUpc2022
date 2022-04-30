@@ -36,6 +36,11 @@
   text-transform: uppercase;
 }
 
+.correct-box{
+  border: 2px solid green;
+  color:  lightgreen;
+}
+
 .special-box{
   border: 2px solid #ffffff00;
   background-color: #e9e9e9;
