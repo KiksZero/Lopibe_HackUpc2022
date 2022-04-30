@@ -212,7 +212,7 @@ function saveGame(){
     var http = new XMLHttpRequest();
     http.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            alert("funciona");
+            window.location.href = "/";
         }
     };
     http.open('POST', 'http://144.24.196.175:8080/LoPibe/games');
@@ -309,7 +309,6 @@ function inputName(){
     document.getElementById("saveName").addEventListener("click", function(){
         playerName = document.getElementById("playerName").value;
         saveGame();
-        window.location.href = "/";
     });
 }
 
