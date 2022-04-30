@@ -118,13 +118,6 @@ function newranking() {
 
 }
 
-function showpalabra(s) {
-    console.log(s);
-    
-}
-
-
-
 function calculate(s) {
     return Math.floor(Math.random()*s.length);
 }
@@ -137,15 +130,6 @@ function cambioletra(solucion, oculta) {
         ocultarLetra(letra);
     }, 1000);
 }
-
-initBoard();
-showPuntuacion();
-var timeInterval = setInterval(function(){
-    updateTimer();}, 1000);
-
-var phraseInterval = setInterval(function(){
-    cambioletra("holaaaaaaa", "          ");
-}, 2000);
 
 function checkGuess () {
     let row = document.getElementsByClassName("letter-row")[1];
@@ -172,7 +156,6 @@ function checkGuess () {
         box.textContent = '';
     }
 }
-
 
 function saveGame(){
     var http = new XMLHttpRequest();
@@ -206,17 +189,34 @@ function updateTimer() {
     }
     else {
         --timer;
-        let timerView = document.getElementById("timer");
-        timerView.textContent = timer;
+        showTimer();
+        
     }
+}
+
+function showTimer() {
+    let timerView = document.getElementById("timer");
+    timerView.textContent = "Time: "+timer;
 }
 
 function showPuntuacion() {
     let scoreView = document.getElementById("score");
-    scoreView.textContent = puntuacion;
+    scoreView.textContent = "Score: "+ puntuacion;
 }
 
 function newPuntuacion() {
     puntuacion += 10*timer;
     showPuntuacion();
 }
+
+initBoard();
+showPuntuacion();
+showTimer();
+cambioletra("holaaaaaaa", "          ");
+
+var timeInterval = setInterval(function(){
+    updateTimer();}, 1000);
+
+var phraseInterval = setInterval(function(){
+    cambioletra("holaaaaaaa", "          ");
+}, 1000);
