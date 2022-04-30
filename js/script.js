@@ -24,6 +24,7 @@ function getphrase() {
 
 function initBoard() {
     activo = true;
+    acertados = [];
     getphrase();
 	let board = document.getElementById("game-board");
     board.innerHTML = "";
@@ -182,7 +183,6 @@ function checkGuess () {
         mantenerAciertos();
         timeInterval = setInterval(function(){
             updateTimer();}, 1000);
-        
         phraseInterval = setInterval(function(){
             cambioletra(phrase, "          ");
         }, 1000);
@@ -290,7 +290,6 @@ function siguiente(){
     document.getElementById("button-next").innerHTML = "";
     timeInterval = setInterval(function(){
         updateTimer();}, 1000);
-    
     phraseInterval = setInterval(function(){
         cambioletra(phrase, "          ");
     }, 1000);
