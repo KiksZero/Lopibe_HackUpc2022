@@ -21,6 +21,7 @@ function getphrase() {
 function initBoard() {
     getphrase();
 	let board = document.getElementById("game-board");
+    board.innerHTML = "";
     let row = document.createElement("div");
     row.className = "letter-row";
     //frase boxes
@@ -46,7 +47,7 @@ function initBoard() {
             box.textContent = phrase[i];
         }
         row2.appendChild(box);
-		}
+	}
     board.appendChild(row);
     board.appendChild(row2);
 }
@@ -163,17 +164,18 @@ function checkGuess () {
     }
 
     if (guessString.length != phrase.length) {
-        //alert("Not enough letters!");
-        notice("Not enough letters!", 1)
+        notice("Not enough letters!", 1);
     } else if (phrase != guessString) {
-        //alert("Cagaste");
-        notice("Cagaste", 1)
+        notice("Cagaste", 1);
     } else if (guessString === phrase) {
-        //alert("You guessed right! Game over!");
         notice("You guessed right! Game over!", 0);
         newPuntuacion();
         clearInterval(timeInterval);
         showphrase();
+        document.getElementById("button-next").innerHTML="<button id='next' class='btn btn-danger'>Next</button>";
+        document.getElementById("next").addEventListener("click", function() {
+            siguiente();
+        });
     } 
 
     currentGuess = [];
@@ -193,7 +195,7 @@ function saveGame(){
             alert("funciona");
         }
     };
-    http.open('POST', 'http://localhost:8080/LoPibe/games');
+    http.open('POST', 'http://127.0.0.1:8080/LoPibe/games');
     http.setRequestHeader("Access-Control-Allow-Origin","*");
     http.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
     var name = "hola";
@@ -243,4 +245,9 @@ function notice(notice, status){
     } else {
         node.className="error";
     }
+}
+
+function siguiente(){
+    initBoard();
+    document.getElementById("button-next").innerHTML = "";
 }
