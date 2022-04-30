@@ -26,7 +26,7 @@ function initBoard() {
 	let board = document.getElementById("game-board");
     board.innerHTML = "";
     let row = document.createElement("div");
-    row.className = "letter-row";
+    row.className = "letter-row row";
     //frase boxes
     for (let j = 0; j < phrase.length; j++) {
         let box = document.createElement("div")
@@ -40,7 +40,7 @@ function initBoard() {
 		}
 	//input boxes
 	let row2 = document.createElement("div");
-	row2.className = "letter-row";
+	row2.className = "letter-row row";
 	for (let i = 0; i < phrase.length; i++) {
         let box = document.createElement("div")
         box.id = "input"+i;

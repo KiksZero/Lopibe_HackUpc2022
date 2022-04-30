@@ -3,7 +3,10 @@
   align-items: center;
   flex-direction: column;
 }
-
+.letter-row{
+  margin-left: 10px;
+  margin-right: 10px; 
+}
 .letter-box {
   border: 2px solid gray;
   border-radius: 3px;
@@ -33,10 +36,13 @@
   color:  lightgreen;
 }
 
-.letter-row {
-  display: flex;
-  flex-direction: row;
+@media (min-width: 800px) {
+  .letter-row {
+    display: flex;
+    flex-direction: row;
+  }
 }
+
 @media (max-width: 800px) {
   .letter-box {
     width: 2rem;
