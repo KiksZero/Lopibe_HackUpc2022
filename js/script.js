@@ -81,4 +81,48 @@ function letterClicked(letter){
 	 box.classList.add("filled-box");
 }
 
+function ocultarLetra(letter){
+    let box = document.getElementById("phrase"+letter);
+    box.textContent = "";
+    box.classList.remove("filled-box");
+}
+
+function getranking() {
+
+}
+
+function showranking() {
+
+}
+
+function newranking() {
+    let a = getranking();
+
+}
+
+function showpalabra(s) {
+    console.log(s);
+    
+}
+
+function calculate(s) {
+    return Math.floor(Math.random()*s.length);
+}
+
+function cambioletra(solucion, oculta) {
+    var oc = oculta
+    let letra = calculate(solucion);
+    while (!(solucion[letra] >= 'a' && solucion[letra] <= 'z') || (solucion[letra] >= 'A' && solucion[letra] <= 'Z') && oculta[letra] != solucion[letra]) letra = calculate(solucion);
+    letterClicked(letra);
+    setTimeout(function(){
+        ocultarLetra(letra);
+    }, 1000);
+}
+
 initBoard();
+
+setInterval(function(){
+    cambioletra("holaaaaaaa", "          ");
+}, 2000);
+
+
