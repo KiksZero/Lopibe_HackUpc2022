@@ -13,9 +13,11 @@ function getRanking(params) {
 function generateTable(text){
     var json = JSON.parse(text);
     var element = document.getElementById("ranking-table");
+    var i = 0;
     for (node of json){
+        i = i + 1;
         var child = document.createElement("div");
-        child.innerHTML = node.playerName + " " + node.score + " " + node.scoreDate;
+        child.innerHTML = i + "- " + node.playerName + " " + node.score + " " + node.scoreDate;
         element.appendChild(child);
     }
 }
