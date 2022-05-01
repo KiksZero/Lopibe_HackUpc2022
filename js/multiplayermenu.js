@@ -1,6 +1,6 @@
 function createMatch(){
     var name = document.getElementById("name-input").value;
-    if (name == "") notice('A name must be provided.', 1);
+    if (name == "") notice('A Username must be provided.', 1);
     else {
         var http = new XMLHttpRequest();
         http.onreadystatechange = function() {
@@ -19,7 +19,7 @@ function createMatch(){
 function enterMatch(){
     var id = document.getElementById("id-input").value;
     var name = document.getElementById("name-input").value;
-    if (name == "") notice('A name must be provided.', 1);
+    if (name == "") notice('A Username must be provided.', 1);
     else if (id == "") notice('A match code must be provided. If you do not have a match code, click "Create Match"', 1);
     else {
         var http = new XMLHttpRequest();
