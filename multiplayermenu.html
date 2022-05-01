@@ -11,9 +11,44 @@
 
 </head>
 <body>
+	<div class="jumbotron text-center">
+		<br>
+		<h1>LoPibe The Game</h1>
+  	</div>
+	<div class="container">
+		<div class="row text-center justify-content-center">
+			<div class="col-lg-4">
+				<p>Introduce your username below:</p>
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+					  <span class="input-group-text" id="basic-addon1">Username</span>
+					</div>
+					<input type="text" id="name-input" name="name" class="form-control" placeholder="My Username">
+				</div>
+			</div>
+		</div>
+
+	 	<div class="row text-center justify-content-center">
+			<div class="col-lg-4">
+				<p>Introduce the match code below:</p>
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="basic-addon1">Match Code</span>
+					</div>
+					<input type="text" id="id-input" name="id" class="form-control" placeholder="1234">
+				</div>
+				<div class="col-lg-4" style="width: 100%;">
+					<button class="btn btn-outline-primary" style="margin-right: 10px;" onclick="enterMatch()" type="button">Let's play!</button>
+					<button class="btn btn-outline-dark" onclick="createMatch()" type="button">Create Match</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!--
     <input id="name-input" name="name" type="text">
-    <input id="id-input" name="id" type="text">
-    <button onclick="enterMatch()">Play</button>
-    <button onclick="createMatch()">Create Match</button>
+    <input id="id-input" name="id" type="text"> 
+    <p><button onclick="enterMatch()">Play</button></p>
+    <p><button onclick="createMatch()">Create Match</button></p>-->
 </body>
 </html>
