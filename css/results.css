@@ -14,7 +14,8 @@
   	background-color: #abf7f3;
   	color: white;
   	font-weight: bold;
-
+	max-height: 400px;
+	min-height: 23px;
 }
 
 .winnerscore{
