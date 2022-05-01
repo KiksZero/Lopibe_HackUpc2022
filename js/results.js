@@ -4,6 +4,18 @@ let score1 = 6599;
 let score2 = 10000;
 
 
+function getQueryVariable(variable) {
+    var query = window.location.search.substring(1);
+    var vars = query.split('&');
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split('=');
+        if (decodeURIComponent(pair[0]) == variable) {
+            return decodeURIComponent(pair[1]);
+        }
+    }
+}
+let id = getQueryVariable("id");
+
 function initialize(){
 	var nameView = document.getElementById("players");
 	nameView.textContent = player1 + " VS " + player2;
@@ -26,4 +38,22 @@ function initialize(){
 	winnerView.style.height = 0.040*score2 + "px";
 }
 
-initialize();
+function getResults(){
+	var http = new XMLHttpRequest();
+    http.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+			var json = JSON.parse(this.responseText);
+			player1 = json.name1;
+			player2 = json.name2;
+			score1 = json.result1;
+			score2 = json.result2;
+            alert(this.responseText);
+			initialize();
+        }
+    };
+    http.open('GET', 'http://144.24.196.175:8080/LoPibe/duelos?id='+id);
+    http.setRequestHeader("Access-Control-Allow-Origin","*");
+    http.send();
+}
+
+getResults();

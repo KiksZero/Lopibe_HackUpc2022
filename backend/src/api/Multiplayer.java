@@ -39,6 +39,17 @@ public class Multiplayer {
 		return Response.ok(result).header("Access-Control-Allow-Origin", "*").build();
 	}
 
+	@GET
+	@Consumes({MediaType.APPLICATION_JSON})
+	@Produces({MediaType.APPLICATION_JSON}) 
+	@Path("/")
+	public Response getDuelo(@QueryParam("id") int id) {
+		DataCtrl dataCtrl = DataCtrl.getInstance();
+		DueloDataCtrl ddc = dataCtrl.getDueloDataCtrl();
+		Duelo result = ddc.select(id);
+		return Response.ok(result).header("Access-Control-Allow-Origin", "*").build();
+	}
+
     @PUT
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Produces({MediaType.APPLICATION_JSON}) 
