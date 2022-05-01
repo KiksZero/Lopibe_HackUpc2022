@@ -30,8 +30,6 @@ public class Multiplayer {
 		try {
 			JSONObject json = new JSONObject(content);
 			String name1 = json.getString("name1");
-			System.out.println("HOLA");
-			System.out.println(name1);
 			DataCtrl dataCtrl = DataCtrl.getInstance();
 			DueloDataCtrl ddc = dataCtrl.getDueloDataCtrl();
 			result = ddc.insert(name1);
