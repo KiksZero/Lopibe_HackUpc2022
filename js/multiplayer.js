@@ -158,12 +158,10 @@ function calculate() {
         if(acertados[i] == 0 && (phrase[i].match(/[a-z]/gi)) && !document.getElementById("phrase"+i).matches('.filled-box')) pos.push(i);
     }
     var letra = pos[Math.floor(Math.random()*pos.length)];
-    console.log(letra);
     return letra;
 }
 
 function cambioletra(solucion, oculta) {
-    console.log("entra");
     let letra = calculate();
     letterClicked(letra);
     setTimeout(function(){
@@ -268,8 +266,9 @@ function updateTimer() {
         notice("Too slow...");
         clearInterval(timeInterval);
         clearInterval(phraseInterval);
-        showphrase();
-        inputName();
+        //showphrase();
+        //inputName();
+        window.location.href = "/multiplayer_results.html";
     }
     else {
         --timer;
@@ -290,6 +289,18 @@ function showPuntuacion() {
 function newPuntuacion() {
     puntuacion += 10*timer;
     showPuntuacion();
+    var id = 7;
+    var name = "Erik";
+    var http = new XMLHttpRequest();
+    http.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+        }
+    };
+    http.open('PUT', 'http://127.0.0.1:8080/LoPibe/duelos/updateResult');
+
+    http.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
+    http.setRequestHeader("Access-Control-Allow-Origin","*");
+    http.send(JSON.stringify({'name': name, "id": id, "puntuacion": puntuacion}));
 }
 
 initBoard();
@@ -316,7 +327,6 @@ function notice(notice, status){
 
 function siguiente(){
     initBoard();
-    document.getElementById("button-next").innerHTML = "";
     timeInterval = setInterval(function(){
         updateTimer();}, 1000);
     phraseInterval = setInterval(function(){
@@ -346,3 +356,21 @@ function mantenerAciertos(){
         }
 	}
 }
+
+function getOponentScore(){
+    var id = 7;
+    var name = "Erik";
+    var http = new XMLHttpRequest();
+    http.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("punt-opo").innerHTML = this.responseText;
+        }
+    };
+    http.open('GET', 'http://144.24.196.175:8080/LoPibe/duelos/getResult?name='+name+'&id='+id);
+    http.setRequestHeader("Access-Control-Allow-Origin","*");
+    http.send();
+}
+
+var scoreInterval = setInterval(function(){
+    getOponentScore();
+}, 2000);

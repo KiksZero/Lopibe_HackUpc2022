@@ -63,4 +63,10 @@ public class Duelo {
     public Duelo(String name1){
         this.name1 = name1;
     }
+
+    @Override
+    public String toString() {
+        return "Duelo [id=" + id + ", name1=" + name1 + ", name2=" + name2 + ", result1=" + result1 + ", result2="
+                + result2 + ", starts=" + starts + "]";
+    }
 }
