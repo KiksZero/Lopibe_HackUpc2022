@@ -2,6 +2,7 @@ let player1 = "Juan"
 let player2 = "John"
 let score1 = 6599;
 let score2 = 10000;
+let winnerscore = 1;
 
 
 function getQueryVariable(variable) {
@@ -26,16 +27,18 @@ function initialize(){
 	if (score1 > score2){
 		document.getElementById("score1").classList.add("winnerscore");
 		document.getElementById("winner").textContent ="And the winner is ... "+ player1 +"!!";
+		winnerscore= score1;
 	}
 	else if (score1 < score2) {
 	 document.getElementById("score2").classList.add("winnerscore");
 	 document.getElementById("winner").textContent = "And the winner is ... "+ player2 +"!!";
+		winnerscore= score2;
 	}
 
 	var winnerView = document.getElementById("score1");
-	winnerView.style.height = 0.040*score1 + "px";
+	winnerView.style.height = 400*(score1/winnerscore) + "px";
 	var winnerView = document.getElementById("score2");
-	winnerView.style.height = 0.040*score2 + "px";
+	winnerView.style.height = 400*(score2/winnerscore) + "px";
 }
 
 function getResults(){

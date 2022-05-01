@@ -370,7 +370,7 @@ function getOponentScore(){
     var http = new XMLHttpRequest();
     http.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("punt-opo").innerHTML = this.responseText;
+            document.getElementById("punt-opo").innerHTML = "Rival Score: " + this.responseText;
         }
     };
     http.open('GET', 'http://144.24.196.175:8080/LoPibe/duelos/getResult?name='+player1+'&id='+id);
