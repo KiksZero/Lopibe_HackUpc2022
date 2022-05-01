@@ -279,7 +279,7 @@ function updateTimer() {
         clearInterval(phraseInterval);
         //showphrase();
         //inputName();
-        window.location.href = "/multiplayer_results.html";
+        window.location.href = "/multiplayer_results.html?id="+id;
     }
     else {
         --timer;
