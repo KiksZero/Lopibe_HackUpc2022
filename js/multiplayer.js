@@ -350,13 +350,18 @@ function waiting(){
     http.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
 			var json = JSON.parse(this.responseText);
-			player2 = json.name2;
+            if(player1 == json.name2) {
+                player1 = json.name2;
+                player2 = json.name1;
+            } else {
+                player2 = json.name2;
+            }
             if(player2 == null){
                 waiting();
             } else {
                 document.getElementById("keyboard-cont").style.visibility = "visible";
-                document.getElementById("match-id").style.visibility = "hidden";
-                document.getElementById("loading-spinner").style.visibility = "hidden";
+                document.getElementById("match-id").remove();
+                document.getElementById("loading-spinner").remove();
                 document.getElementById("players").innerHTML = player1 + " vs " + player2;
                 init();
             }
