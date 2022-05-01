@@ -17,7 +17,7 @@ function generateTableIndex(text){
     for (node of json){
         i = i + 1;
         var child = document.createElement("tr");
-        if(i == 1) child.innerHTML = "<td align='center'><img class='corona' src=images/oro.png>" + i;
+        if(i == 1) child.innerHTML = "<td align='center'><img id='oro' class='corona' src=images/oro.png>" + i;
         else if(i == 2) child.innerHTML = "<td align='center'><img class='corona' src=images/plata.png>" + i;
         else if(i == 3) child.innerHTML = "<td align='center'><img class='corona' src=images/bronce.png>" + i;
         else child.innerHTML = "<td align='center'><img class='corona' src=images/transparente.png>" + i;
@@ -25,4 +25,8 @@ function generateTableIndex(text){
         element.appendChild(child);
         if (i == 5) break;
     }
+    document.getElementById("oro").addEventListener("click", () => {
+        document.getElementById("audio").play();
+    })
 }
+

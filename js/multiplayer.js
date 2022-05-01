@@ -211,8 +211,8 @@ function checkGuess () {
         activo = false;
         notice("You guessed right! Next!", 0);
         newPuntuacion();
-        //clearInterval(timeInterval);
-        //clearInterval(phraseInterval);
+        clearInterval(timeInterval);
+        clearInterval(phraseInterval);
         showphrase();
         setTimeout(2000);
         siguiente();
