@@ -154,7 +154,7 @@ function calculate() {
     return letra;
 }
 
-function cambioletra(solucion, oculta) {
+function cambioletra() {
     console.log("entra");
     let letra = calculate();
     letterClicked(letra);
@@ -182,7 +182,7 @@ function checkGuess () {
         updateTimerFallo(); 
         timeInterval = setInterval(function(){updateTimer();}, 1000);       
         phraseInterval = setInterval(function(){
-            cambioletra(phrase, "          ");
+            cambioletra();
         }, 1000);
     } else if (guessString === phrase) {
         activo = false;
@@ -207,17 +207,20 @@ function checkGuess () {
 }
 
 function saveGame(){
-    var http = new XMLHttpRequest();
-    http.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            window.location.href = "/";
-        }
-    };
-    http.open('POST', 'http://144.24.196.175:8080/LoPibe/games');
-    http.setRequestHeader("Access-Control-Allow-Origin","*");
-    http.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
-    var scoreDate = Date.now();
-    http.send(JSON.stringify({'playerName': playerName , 'score': puntuacion, 'scoreDate': scoreDate}));
+    if (playerName == "") notice("A player name must be entered", 1);
+    else {
+        var http = new XMLHttpRequest();
+        http.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                window.location.href = "/";
+            }
+        };
+        http.open('POST', 'http://144.24.196.175:8080/LoPibe/games');
+        http.setRequestHeader("Access-Control-Allow-Origin","*");
+        http.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
+        var scoreDate = Date.now();
+        http.send(JSON.stringify({'playerName': playerName , 'score': puntuacion, 'scoreDate': scoreDate}));
+    }
 }
 
 function showphrase() {
@@ -270,13 +273,13 @@ function newPuntuacion() {
 initBoard();
 showPuntuacion();
 showTimer();
-cambioletra(phrase, "          ");
+cambioletra();
 
 var timeInterval = setInterval(function(){
     updateTimer();}, 1000);
 
 var phraseInterval = setInterval(function(){
-    cambioletra(phrase, "          ");
+    cambioletra();
 }, 1000);
 
 function notice(notice, status){
@@ -295,7 +298,7 @@ function siguiente(){
     timeInterval = setInterval(function(){
         updateTimer();}, 1000);
     phraseInterval = setInterval(function(){
-        cambioletra(phrase, "          ");
+        cambioletra();
     }, 1000);
     notice("", 0);
     timer = ini_timer;
@@ -303,7 +306,7 @@ function siguiente(){
 
 function inputName(){
     var node = document.getElementById("input-name");
-    node.innerHTML = "<div>Add your score to the ranking! Enter your name:</div><input type='text' style='margin-top: 4px' size=10 id='playerName'><br><button class='btn btn-success' style='margin-top: 4px' id='saveName'>Save</button>";
+    node.innerHTML = "<div>Add your score to the ranking! Enter your name:</div><input type='text' style='margin-top: 4px' size=10 id='playerName'><br><button class='btn btn-success' style='margin-top: 4px' id='saveName'>Save</button><br><br>";
     document.getElementById("saveName").addEventListener("click", function(){
         playerName = document.getElementById("playerName").value;
         saveGame();

@@ -7,6 +7,11 @@ let puntuacion = 0;
 let player2 = "John";
 let activo = true;
 
+// TIMERS
+var timeInterval;
+var phraseInterval;
+var scoreInterval;
+
 function getQueryVariable(variable) {
     var query = window.location.search.substring(1);
     var vars = query.split('&');
@@ -172,7 +177,7 @@ function calculate() {
     return letra;
 }
 
-function cambioletra(solucion, oculta) {
+function cambioletra() {
     let letra = calculate();
     letterClicked(letra);
     setTimeout(function(){
@@ -198,7 +203,7 @@ function checkGuess () {
         mantenerAciertos();
         timeInterval = setInterval(function(){updateTimer();}, 1000);       
         phraseInterval = setInterval(function(){
-            cambioletra(phrase, "          ");
+            cambioletra();
         }, 1000);
         penalty();
 
@@ -221,20 +226,6 @@ function checkGuess () {
         box.classList.remove("filled-box2");
         box.textContent = '';
     }
-}
-
-function saveGame(){
-    var http = new XMLHttpRequest();
-    http.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            window.location.href = "/";
-        }
-    };
-    http.open('POST', 'http://144.24.196.175:8080/LoPibe/games');
-    http.setRequestHeader("Access-Control-Allow-Origin","*");
-    http.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
-    var scoreDate = Date.now();
-    http.send(JSON.stringify({'playerName': playerName , 'score': puntuacion, 'scoreDate': scoreDate}));
 }
 
 function penalty(){
@@ -277,8 +268,6 @@ function updateTimer() {
         notice("Too slow...");
         clearInterval(timeInterval);
         clearInterval(phraseInterval);
-        //showphrase();
-        //inputName();
         window.location.href = "/multiplayer_results.html?id="+id;
     }
     else {
@@ -312,18 +301,6 @@ function newPuntuacion() {
     http.send(JSON.stringify({'name': player1, "id": id, "puntuacion": puntuacion}));
 }
 
-initBoard();
-showPuntuacion();
-showTimer();
-cambioletra(phrase, "          ");
-
-var timeInterval = setInterval(function(){
-    updateTimer();}, 1000);
-
-var phraseInterval = setInterval(function(){
-    cambioletra(phrase, "          ");
-}, 1000);
-
 function notice(notice, status){
     var node = document.getElementById("notice");
     node.innerHTML="<p>"+notice+"<p>";
@@ -339,20 +316,10 @@ function siguiente(){
     timeInterval = setInterval(function(){
         updateTimer();}, 1000);
     phraseInterval = setInterval(function(){
-        cambioletra(phrase, "          ");
+        cambioletra();
     }, 1000);
     notice("", 0);
 }
-
-function inputName(){
-    var node = document.getElementById("input-name");
-    node.innerHTML = "<input type='text' id='playerName'><button id='saveName'>Save</button>";
-    document.getElementById("saveName").addEventListener("click", function(){
-        playerName = document.getElementById("playerName").value;
-        saveGame();
-    });
-}
-
 
 function mantenerAciertos(){
     for (let i = 0; i < phrase.length; i++) {
@@ -378,7 +345,45 @@ function getOponentScore(){
     http.send();
 }
 
-var scoreInterval = setInterval(function(){
-    getOponentScore();
-}, 2000);
+function waiting(){
+    var http = new XMLHttpRequest();
+    http.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+			var json = JSON.parse(this.responseText);
+			player2 = json.name2;
+            if(player2 == null){
+                waiting();
+            } else {
+                document.getElementById("keyboard-cont").style.visibility = "visible";
+                document.getElementById("match-id").style.visibility = "hidden";
+                document.getElementById("loading-spinner").style.visibility = "hidden";
+                document.getElementById("players").innerHTML = player1 + " vs " + player2;
+                init();
+            }
+        }
+    };
+    http.open('GET', 'http://144.24.196.175:8080/LoPibe/duelos?id='+id);
+    http.setRequestHeader("Access-Control-Allow-Origin","*");
+    http.send();
+}
 
+function init(){
+    initBoard();
+    showPuntuacion();
+    showTimer();
+
+    timeInterval = setInterval(function(){
+        updateTimer();}, 1000);
+
+    phraseInterval = setInterval(function(){
+        cambioletra();
+    }, 1000);
+
+    scoreInterval = setInterval(function(){
+        getOponentScore();
+    }, 2000);
+}
+
+document.getElementById("match-id").innerHTML = "<h2>Match Code: " + id + "</h2>"; 
+document.getElementById("players").innerHTML = player1 + " vs ...";
+waiting();

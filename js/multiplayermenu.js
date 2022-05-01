@@ -1,6 +1,6 @@
 function createMatch(){
     var name = document.getElementById("name-input").value;
-    if (name == "") alert('A name must be provided.');
+    if (name == "") notice('A name must be provided.', 1);
     else {
         var http = new XMLHttpRequest();
         http.onreadystatechange = function() {
@@ -19,8 +19,8 @@ function createMatch(){
 function enterMatch(){
     var id = document.getElementById("id-input").value;
     var name = document.getElementById("name-input").value;
-    if (name == "") alert('A name must be provided.');
-    else if (id == "") alert('A match code must be provided. If you do not have a match code, click "Create Match"');
+    if (name == "") notice('A name must be provided.', 1);
+    else if (id == "") notice('A match code must be provided. If you do not have a match code, click "Create Match"', 1);
     else {
         var http = new XMLHttpRequest();
         http.onreadystatechange = function() {
@@ -32,5 +32,15 @@ function enterMatch(){
         http.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
         http.setRequestHeader("Access-Control-Allow-Origin","*");
         http.send(JSON.stringify({'name2': name, "id": id}));
+    }
+}
+
+function notice(notice, status){
+    var node = document.getElementById("notice");
+    node.innerHTML="<p>"+notice+"<p>";
+    if (status == 0) {
+        node.className="correct";
+    } else {
+        node.className="error";
     }
 }
