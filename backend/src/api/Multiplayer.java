@@ -7,12 +7,14 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
+import domain.Duelo;
 import domain.dataCtrl.DataCtrl;
 import domain.dataCtrl.DueloDataCtrl;
 
@@ -28,8 +30,6 @@ public class Multiplayer {
 		try {
 			JSONObject json = new JSONObject(content);
 			String name1 = json.getString("name1");
-			System.out.println("HOLA");
-			System.out.println(name1);
 			DataCtrl dataCtrl = DataCtrl.getInstance();
 			DueloDataCtrl ddc = dataCtrl.getDueloDataCtrl();
 			result = ddc.insert(name1);
@@ -79,35 +79,23 @@ public class Multiplayer {
     @PUT
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Produces({MediaType.APPLICATION_JSON}) 
-	@Path("/submitResult1")
-	public Response submitResult1(String content) {
-		boolean result = false;
-		try {
-			JSONObject json = new JSONObject(content);
-			int r1 = json.getInt("r1");
-			int id = json.getInt("id");
-			DataCtrl dataCtrl = DataCtrl.getInstance();
-			DueloDataCtrl ddc = dataCtrl.getDueloDataCtrl();
-			result = ddc.updateResult1(id, r1);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		return Response.ok(result).header("Access-Control-Allow-Origin", "*").build();
-	}
-
-    @PUT
-	@Consumes({MediaType.APPLICATION_JSON})
-	@Produces({MediaType.APPLICATION_JSON}) 
-	@Path("/submitResult2")
+	@Path("/updateResult")
 	public Response submitResult2(String content) {
 		boolean result = false;
 		try {
 			JSONObject json = new JSONObject(content);
-			int r2 = json.getInt("r2");
+			int r = json.getInt("puntuacion");
 			int id = json.getInt("id");
+			String name = json.getString("name");
 			DataCtrl dataCtrl = DataCtrl.getInstance();
 			DueloDataCtrl ddc = dataCtrl.getDueloDataCtrl();
-			result = ddc.updateResult2(id, r2);
+			Duelo d = ddc.select(id);
+			result = false;
+			if(d.getName1().equals(name)) {
+				result = ddc.updateResult1(id, r);
+			} else {
+				result = ddc.updateResult2(id, r);
+			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -117,36 +105,12 @@ public class Multiplayer {
     @GET
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Produces({MediaType.APPLICATION_JSON}) 
-	@Path("/getResult1")
-	public Response getResults1(String content) {
+	@Path("/getResult")
+	public Response getResults1(@QueryParam("name") String name, @QueryParam("id") int id) {
 		int result = 0;
-		try {
-			JSONObject json = new JSONObject(content);
-			int id = json.getInt("id");
-			DataCtrl dataCtrl = DataCtrl.getInstance();
-			DueloDataCtrl ddc = dataCtrl.getDueloDataCtrl();
-			result = ddc.selectResult1(id);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		return Response.ok(result).header("Access-Control-Allow-Origin", "*").build();
-	}
-
-    @GET
-	@Consumes({MediaType.APPLICATION_JSON})
-	@Produces({MediaType.APPLICATION_JSON}) 
-	@Path("/getResult2")
-	public Response getResults2(String content) {
-		int result = 0;
-		try {
-			JSONObject json = new JSONObject(content);
-			int id = json.getInt("id");
-			DataCtrl dataCtrl = DataCtrl.getInstance();
-			DueloDataCtrl ddc = dataCtrl.getDueloDataCtrl();
-			 result = ddc.selectResult2(id);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+		DataCtrl dataCtrl = DataCtrl.getInstance();
+		DueloDataCtrl ddc = dataCtrl.getDueloDataCtrl();
+		result = ddc.selectResult(id, name);
 		return Response.ok(result).header("Access-Control-Allow-Origin", "*").build();
 	}
 
@@ -159,6 +123,18 @@ public class Multiplayer {
 	@OPTIONS
 	@Path("/start")
 	public Response options2(){
+		return Response.ok().header("Access-Control-Allow-Origin", "*").header("Access-Control-Allow-Headers", "*").header("Access-Control-Allow-Methods", "OPTIONS,GET,PUT,DELETE,POST").build();
+	}
+
+	@OPTIONS
+	@Path("/getResult")
+	public Response options3(){
+		return Response.ok().header("Access-Control-Allow-Origin", "*").header("Access-Control-Allow-Headers", "*").header("Access-Control-Allow-Methods", "OPTIONS,GET,PUT,DELETE,POST").build();
+	}
+
+	@OPTIONS
+	@Path("/updateResult")
+	public Response options4(){
 		return Response.ok().header("Access-Control-Allow-Origin", "*").header("Access-Control-Allow-Headers", "*").header("Access-Control-Allow-Methods", "OPTIONS,GET,PUT,DELETE,POST").build();
 	}
 }
