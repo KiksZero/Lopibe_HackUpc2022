@@ -15,9 +15,16 @@ table {
     margin-top: 2px;
 }
 
-
 .corona{
     width: 20px;
     height: 20px;
     margin-right: 5px;
+}
+
+.error{
+  color: red;
+}
+
+.correct{
+  color: green;
 }
