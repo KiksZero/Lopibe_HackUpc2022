@@ -1,8 +1,8 @@
-let player1 = "Juan"
-let player2 = "John"
-let score1 = 6599;
-let score2 = 10000;
-
+let player1;
+let player2;
+let score1;
+let score2;
+let winnerscore;
 
 function getQueryVariable(variable) {
     var query = window.location.search.substring(1);
@@ -26,16 +26,16 @@ function initialize(){
 	if (score1 > score2){
 		document.getElementById("score1").classList.add("winnerscore");
 		document.getElementById("winner").textContent ="And the winner is ... "+ player1 +"!!";
+		winnerscore = score1;
 	}
 	else if (score1 < score2) {
 	 document.getElementById("score2").classList.add("winnerscore");
 	 document.getElementById("winner").textContent = "And the winner is ... "+ player2 +"!!";
+		winnerscore = score2;
 	}
 
-	var winnerView = document.getElementById("score1");
-	winnerView.style.height = 0.040*score1 + "px";
-	var winnerView = document.getElementById("score2");
-	winnerView.style.height = 0.040*score2 + "px";
+	document.getElementById("score1").style.height = 400*(score1/winnerscore) + "px";
+	document.getElementById("score2").style.height = 400*(score2/winnerscore) + "px";
 }
 
 function getResults(){
@@ -47,7 +47,6 @@ function getResults(){
 			player2 = json.name2;
 			score1 = json.result1;
 			score2 = json.result2;
-            alert(this.responseText);
 			initialize();
         }
     };

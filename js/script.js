@@ -154,7 +154,7 @@ function calculate() {
     return letra;
 }
 
-function cambioletra(solucion, oculta) {
+function cambioletra() {
     console.log("entra");
     let letra = calculate();
     letterClicked(letra);
@@ -182,7 +182,7 @@ function checkGuess () {
         updateTimerFallo(); 
         timeInterval = setInterval(function(){updateTimer();}, 1000);       
         phraseInterval = setInterval(function(){
-            cambioletra(phrase, "          ");
+            cambioletra();
         }, 1000);
     } else if (guessString === phrase) {
         activo = false;
@@ -273,13 +273,13 @@ function newPuntuacion() {
 initBoard();
 showPuntuacion();
 showTimer();
-cambioletra(phrase, "          ");
+cambioletra();
 
 var timeInterval = setInterval(function(){
     updateTimer();}, 1000);
 
 var phraseInterval = setInterval(function(){
-    cambioletra(phrase, "          ");
+    cambioletra();
 }, 1000);
 
 function notice(notice, status){
@@ -298,7 +298,7 @@ function siguiente(){
     timeInterval = setInterval(function(){
         updateTimer();}, 1000);
     phraseInterval = setInterval(function(){
-        cambioletra(phrase, "          ");
+        cambioletra();
     }, 1000);
     notice("", 0);
     timer = ini_timer;
