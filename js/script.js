@@ -305,7 +305,7 @@ function siguiente(){
 
 function inputName(){
     var node = document.getElementById("input-name");
-    node.innerHTML = "<input type='text' id='playerName'><button id='saveName'>Save</button>";
+    node.innerHTML = "<div>Add your score to the ranking! Enter your name:</div><input type='text' style='margin-top: 4px' size=10 id='playerName'><br><button class='btn btn-success' style='margin-top: 4px' id='saveName'>Save</button>";
     document.getElementById("saveName").addEventListener("click", function(){
         playerName = document.getElementById("playerName").value;
         saveGame();
