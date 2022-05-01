@@ -177,7 +177,7 @@ function calculate() {
     return letra;
 }
 
-function cambioletra(solucion, oculta) {
+function cambioletra() {
     let letra = calculate();
     letterClicked(letra);
     setTimeout(function(){
@@ -203,7 +203,7 @@ function checkGuess () {
         mantenerAciertos();
         timeInterval = setInterval(function(){updateTimer();}, 1000);       
         phraseInterval = setInterval(function(){
-            cambioletra(phrase, "          ");
+            cambioletra();
         }, 1000);
         penalty();
 
@@ -316,20 +316,10 @@ function siguiente(){
     timeInterval = setInterval(function(){
         updateTimer();}, 1000);
     phraseInterval = setInterval(function(){
-        cambioletra(phrase, "          ");
+        cambioletra();
     }, 1000);
     notice("", 0);
 }
-
-function inputName(){
-    var node = document.getElementById("input-name");
-    node.innerHTML = "<input type='text' id='playerName'><button id='saveName'>Save</button>";
-    document.getElementById("saveName").addEventListener("click", function(){
-        playerName = document.getElementById("playerName").value;
-        saveGame();
-    });
-}
-
 
 function mantenerAciertos(){
     for (let i = 0; i < phrase.length; i++) {
@@ -386,7 +376,7 @@ function init(){
         updateTimer();}, 1000);
 
     phraseInterval = setInterval(function(){
-        cambioletra(phrase, "          ");
+        cambioletra();
     }, 1000);
 
     scoreInterval = setInterval(function(){

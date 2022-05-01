@@ -1,7 +1,7 @@
-let player1 = "Juan"
-let player2 = "John"
-let score1 = 6599;
-let score2 = 10000;
+let player1
+let player2
+let score1
+let score2
 
 
 function getQueryVariable(variable) {
