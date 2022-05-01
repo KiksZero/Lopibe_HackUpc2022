@@ -3,7 +3,8 @@ function createMatch(){
     var http = new XMLHttpRequest();
     http.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            window.location.href = "/multiplayer.html";
+            var id = this.responseText;
+            window.location.href = "/multiplayer.html?name="+name+"&id="+id;
         }
     };
     http.open('POST', 'http://144.24.196.175:8080/LoPibe/duelos');
@@ -18,7 +19,7 @@ function enterMatch(){
     var http = new XMLHttpRequest();
     http.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            window.location.href = "/multiplayer.html";
+            window.location.href = "/multiplayer.html?name="+name+"&id="+id;
         }
     };
     http.open('PUT', 'http://144.24.196.175:8080/LoPibe/duelos/start');
