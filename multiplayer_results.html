@@ -9,6 +9,7 @@
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
   	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<link rel="stylesheet" type="text/css" href="css/fraseblock.css">
+	<link rel="stylesheet" type="text/css" href="css/results.css">
 	<title>LoPibe The Game</title>
 	<script src="js/results.js" type="module"></script>
 
@@ -19,23 +20,29 @@
 		<br>
 		<h1>LoPibe The Game</h1>
 		<h4 id = "players"> Juan vs Jon</h4>
-		<br>
 	</div>
 		<center>
-			<div>
-					<thead>
-						<div id="timer"></div>
-						<div id="score"></div>
-					</thead>
-					<tbody>
-		
-					</tbody>
-				</table>
-			</div><br>
-			<div id="notice"></div>
-		
+			<div class="container row">
+				<div class="row text-center ">
+					<div class = "col-lg-5"> </div>
+					<div class = "player col-lg-1 col-6">
+						<div id = "player1" >a</div>
+						<div class = "score" id = "score1"> 10</div>
+					</div>
+					<div class = "player col-lg-1 col-6">
+						<div id = "player2" >a</div>
+						<div class = "score" id = "score2"> 20</div>
+					</div>
+					<div class = "col-lg-5"> </div>
 			</div>
-			<br>
+			<div id= "winner">And the winner is</div>
+		</div>
+		<a id= "botonmain"class="btn btn-primary " href="/index.html" role="button">Return to Main Menu</a>
 		</center>
+		<br>
+		<footer>
+        <center><p style="font-size: 10px;"> A project by David F, David H, Erik and Omar. Developed at HackUPC 2022.</p></center>
+    </footer>
 </body>
+
 </html>
