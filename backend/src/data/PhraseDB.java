@@ -17,7 +17,7 @@ public class PhraseDB implements PhraseDataCtrl{
     private PhraseDB(){
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://144.24.196.175:3306/HACKUPC?allowPublicKeyRetrieval=true&useSSL=false", "pibes", "pibes");
+            conn = DriverManager.getConnection("jdbc:mysql://144.24.196.175:3306/HACKUPC?allowPublicKeyRetrieval=true&useSSL=false", "pibes", "n3guWytmxxmJtx");
             select = conn.prepareStatement("SELECT * FROM Frases WHERE idFrase = ?");
             biggestIndex = conn.prepareStatement("SELECT MAX(idFrase) as max_int FROM Frases");
         } catch (ClassNotFoundException e) {

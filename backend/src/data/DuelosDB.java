@@ -25,7 +25,7 @@ public class DuelosDB implements DueloDataCtrl{
     private DuelosDB(){
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://144.24.196.175:3306/HACKUPC?allowPublicKeyRetrieval=true&useSSL=false", "pibes", "pibes");
+            conn = DriverManager.getConnection("jdbc:mysql://144.24.196.175:3306/HACKUPC?allowPublicKeyRetrieval=true&useSSL=false", "pibes", "n3guWytmxxmJtx");
             selectStart = conn.prepareStatement("SELECT starts FROM Duelos WHERE id = ?");
             selectResult1 = conn.prepareStatement("SELECT result1 FROM Duelos WHERE id = ?");
             selectResult = conn.prepareStatement("(SELECT result1 AS res FROM Duelos WHERE id = ? AND name2 = ?) UNION (SELECT result2 AS res  FROM Duelos WHERE id = ? AND name1 = ? AND name1 != name2)");

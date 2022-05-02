@@ -25,7 +25,7 @@ public class GameDB implements GameDataCtrl{
     private GameDB(){
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://144.24.196.175:3306/HACKUPC?allowPublicKeyRetrieval=true&useSSL=false", "pibes", "pibes");
+            conn = DriverManager.getConnection("jdbc:mysql://144.24.196.175:3306/HACKUPC?allowPublicKeyRetrieval=true&useSSL=false", "pibes", "n3guWytmxxmJtx");
             insert = conn.prepareStatement("INSERT INTO Game(playerName, score, scoreDate) VALUES (?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
             select = conn.prepareStatement("SELECT * FROM Game WHERE playerName = ? AND score = ? AND scoreDate = ?");
             selectAll = conn.prepareStatement("SELECT * FROM Game ORDER BY score DESC");
