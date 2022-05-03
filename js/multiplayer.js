@@ -161,7 +161,8 @@ function letterClicked(letter){
 }
 
 function ocultarLetra(letter){
-    if (activo){
+    //cambio nuevo: && acertados[letter]==0
+    if (activo && acertados[letter]==0){
         let box = document.getElementById("phrase"+letter);
         box.textContent = "";
         box.classList.remove("filled-box");
