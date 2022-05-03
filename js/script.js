@@ -137,7 +137,8 @@ function letterClicked(letter){
 }
 
 function ocultarLetra(letter){
-    if (activo){
+    //cambio nuevo: && acertados[letter]==0;
+    if (activo && acertados[letter]==0){
         let box = document.getElementById("phrase"+letter);
         box.textContent = "";
         box.classList.remove("filled-box");
@@ -184,6 +185,7 @@ function checkGuess () {
         phraseInterval = setInterval(function(){
             cambioletra();
         }, 1000);
+
     } else if (guessString === phrase) {
         activo = false;
         notice("You guessed right! Next!", 0);
